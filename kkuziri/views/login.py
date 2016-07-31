@@ -14,12 +14,12 @@ def login():
             session['logged_in'] = True
             flash('You were logged in')
             print('login success')
-#            return redirect(url_for('show_entries'))
+            return render_template('index.html')
     return render_template('login.html', error=error)
 
 @app.route('/logout')
 def logout():
     session.pop('logged_in', None)
     flash('You were logged out')
-    return render_template('login.html')
+    return render_template('index.html')
 #    return redirect(url_for('show_entries'))

@@ -3,4 +3,4 @@ from kkuziri import app
 
 @app.route('/')
 def index():
-    return render_template('basic.html')
+    return render_template('index.html')
