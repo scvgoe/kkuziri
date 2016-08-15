@@ -6,15 +6,19 @@ from kkuziri import app
 def login():
     error = None
     if request.method == 'POST':
-        if request.form['username'] != app.config['USERNAME']:
-            error = 'Invalid username'
-        elif request.form['password'] != app.config['PASSWORD']:
-            error = 'Invalid password'
-        else:
+        user = User.\
+                    query.\
+                    filter_by(username=request.form['username']).\
+                    first()
+        if (user is not None and
+                user.is_correct_password(request.form['password'])):
             session['logged_in'] = True
             flash('You were logged in')
             print('login success')
             return render_template('index.html')
+        else:
+            error = 'Invalid login'
+            
     return render_template('login.html', error=error)
 
 @app.route('/logout')
@@ -22,4 +26,3 @@ def logout():
     session.pop('logged_in', None)
     flash('You were logged out')
     return render_template('index.html')
-#    return redirect(url_for('show_entries'))

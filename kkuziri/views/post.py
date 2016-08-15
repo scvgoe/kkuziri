@@ -2,18 +2,23 @@ from flask import render_template, url_for
 from kkuziri.models import User
 from kkuziri import app
 
-@app.route('/posts/<category>', methods=['GET'])
+@app.route('/posts/<category>')
 def posts():
     # show list of posts
     return render_template('posts.html')
 
-@app.route('/post/<post_id>', methods=['GET'])
+@app.route('/post/<id>')
 def post():
     # show post
     return render_template('post.html')
 
-#@app.route('/post/<category>/new', methods=['GET'])
-@app.route('/post_new', methods=['GET'])
-def post_new():
+@app.route('/posts/<category>/new', methods=['GET, POST'])
+def new_post():
     # new post
     return render_template('post_edit.html')
+
+@app.route('/category/new', methods=['GET, POST'])
+def new_category():
+    # new category
+    return
+
