@@ -1,0 +1,17 @@
+{% extends "basic.html" %}
+{% block body %}
+
+<form>
+    <input name="title" type="text" placeholder="Title" />
+    <textarea name="content" data-provide="markdown" rows="10"></textarea>
+    <hr/>
+    <button type="submit" class="btn">Submit</button>
+</form> 
+
+{% endblock %}
+{% block script %}
+    <link rel="stylesheet" type="text/css" media="screen" href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-markdown/2.2.1/css/bootstrap-markdown.min.css">
+    <script src="http://toopay.github.io/bootstrap-markdown/js/markdown.js"></script>
+    <script src="http://toopay.github.io/bootstrap-markdown/js/to-markdown.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-markdown/2.2.1/js/bootstrap-markdown.js"></script>
+{% endblock %}
