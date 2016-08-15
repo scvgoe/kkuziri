@@ -15,3 +15,5 @@ def test_user():
     print '--------------------- test result -------------------'
     for user in users:
         print 'user_name = %s' % user.username
+
+    print 'test_user success!!!'

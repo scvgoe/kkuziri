@@ -24,3 +24,5 @@ def test_post():
     posts = Post.query.order_by(Post.id)
     for post in posts:
         print 'title: %s, body: %s' % (post.title, post.body)
+
+    print 'test_post success!!'
