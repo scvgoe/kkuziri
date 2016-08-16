@@ -9,7 +9,7 @@ try:
 except:
     app.config.from_object('config')
 
-db = SQLAlchemy(app)
+db = SQLAlchemy(app, session_options={'autocommit': True})
 
 bcrypt = Bcrypt(app)
 

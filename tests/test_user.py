@@ -8,7 +8,6 @@ def test_user():
     for i in range(10):
         u = User('test_user_name_%d' % i, 'test_user_pw_%d' % i)
         db.session.add(u)
-        db.session.commit()
 
     users = User.query.order_by(User.username)
 
