@@ -9,8 +9,8 @@ try:
 except:
     app.config.from_object('config')
 
-db = SQLAlchemy(app, session_options={'autocommit': True})
-
+# db = SQLAlchemy(app, session_options={'autocommit': True})
+db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 
 from views import *

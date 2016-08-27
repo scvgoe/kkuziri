@@ -2,3 +2,5 @@
 2. post upload
 3. posts view
 4. post view
+5. login refactoring
+    5.1 when getting user, it should be encapsulized by user model

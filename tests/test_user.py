@@ -9,10 +9,13 @@ def test_user():
         u = User('test_user_name_%d' % i, 'test_user_pw_%d' % i)
         db.session.add(u)
 
+    db.session.commit()
+
     users = User.query.order_by(User.username)
 
     print '--------------------- test result -------------------'
     for user in users:
         print 'user_name = %s' % user.username
+    db.session.commit()
 
     print 'test_user success!!!'

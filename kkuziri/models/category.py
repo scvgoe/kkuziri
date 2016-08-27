@@ -15,3 +15,27 @@ class Category(db.Model):
 
     def get_id(self):
         return self.id
+
+    def get_full_name(self):
+        full_name = self.name
+        
+        parent_id = self.parent_category_id
+        while (parent_id is not None):
+            parent = Category.query.get(parent_id)
+            full_name = parent.name + '/' + full_name
+            parent_id = parent.parent_category_id
+        db.session.commit()
+
+        return full_name
+
+    @staticmethod
+    def get_category(name):
+        category = Category.query.filter_by(name=name).first()
+        db.session.commit()
+        return category
+
+    @staticmethod
+    def get_categories():
+        categories = Category.query.order_by(Category.name)
+        db.session.commit()
+        return categories

@@ -1,6 +1,5 @@
 from kkuziri import app, db
-
-db.create_all()
+from tests import test_post
 
 if __name__ == '__main__':
     app.run()
