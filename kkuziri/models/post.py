@@ -12,10 +12,10 @@ class Post(db.Model):
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
     comments = db.relationship('Comment', backref='post', lazy='dynamic')
 
-    def __init__(self, title, body, author_id, category):
+    def __init__(self, title, body, author_id, category_id):
         self.title = title
         self.body = body
         self.author_id = author_id
         self.created_at = datetime.now()
         self.views = 0
-        self.category = category
+        self.category_id = category_id
