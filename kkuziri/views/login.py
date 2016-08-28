@@ -4,7 +4,7 @@ from kkuziri import app
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    error = None
+    error = 'Invalid try'
     if request.method == 'POST':
         user = User.\
                     query.\
@@ -13,9 +13,8 @@ def login():
         if (user is not None and
                 user.is_correct_password(request.form['password'])):
             session['logged_in'] = True
-            flash('You were logged in')
-            print('login success')
-            return render_template('index.html')
+            session['user_id'] = user.get_id()
+            return redirect(url_for('index'))
         else:
             error = 'Invalid login'
             
@@ -24,5 +23,5 @@ def login():
 @app.route('/logout')
 def logout():
     session.pop('logged_in', None)
-    flash('You were logged out')
-    return render_template('index.html')
+    session.pop('user_id', None)
+    return redirect(url_for('index'))
