@@ -21,3 +21,6 @@ class User(db.Model):
 
     def is_correct_password(self, plaintext):
         return bcrypt.check_password_hash(self._password, plaintext)
+    
+    def get_id(self):
+        return self.id
