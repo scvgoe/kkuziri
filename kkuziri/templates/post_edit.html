@@ -1,9 +1,18 @@
 {% extends "basic.html" %}
 {% block body %}
 
-<form>
+<form method='POST' action='/post/new'>
     <input name="title" type="text" placeholder="Title" />
-    <textarea name="content" data-provide="markdown" rows="10"></textarea>
+    <div class="form-group">
+        <label for="category">Category</label>
+        <select class="form-control" name='category' id="category">
+            {% for category in categories %}
+            <option>{{category.get_full_name()}}</option>
+            {% endfor %} 
+            <option>Root</option>
+        </select>
+    </div>
+    <textarea name="body" data-provide="markdown" rows="30"></textarea>
     <hr/>
     <button type="submit" class="btn">Submit</button>
 </form> 

@@ -1,6 +1,6 @@
-from flask import render_template, url_for
-from kkuziri.models import User
-from kkuziri import app
+from flask import render_template, url_for, request, session, flash, redirect
+from kkuziri.models import User, Category, Post
+from kkuziri import app, db
 
 @app.route('/posts/<category>')
 def posts():
@@ -13,10 +13,32 @@ def post():
     # show post
     return render_template('post.html')
 
-@app.route('/posts/<category>/new', methods=['GET, POST'])
+@app.route('/post/new', methods=['GET', 'POST'])
 def new_post():
     # new post
-    return render_template('post_edit.html')
+
+    # TODO
+    # form validation check
+
+    if not 'logged_in' in session or session['logged_in'] is not True:
+        flash('You have to be logged in')
+        return render_template('index.html')
+
+    if request.method == 'GET':
+        return render_template('post_edit.html',
+                categories=Category.get_categories())
+
+    elif request.method == 'POST':
+        title = request.form.get('title')
+        body = request.form.get('body')
+        author_id = session['user_id']
+        category =  Category.get_category(request.form.get('category'))
+        
+        post = Post(title, body, author_id, category.get_id())
+        db.session.add(post)
+        db.session.commit()
+
+        return redirect(url_for('post/%s' % post.id))
 
 @app.route('/post/<id>/delete')
 def delete_post():
