@@ -32,7 +32,8 @@ def new_post():
         title = request.form.get('title')
         body = request.form.get('body')
         author_id = session['user_id']
-        category =  Category.get_category(request.form.get('category'))
+        category_name = request.form.get('category').split('/')[-1]
+        category = Category.get_category(category_name)
         
         post = Post(title, body, author_id, category.get_id())
         db.session.add(post)

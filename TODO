@@ -1,5 +1,6 @@
-2. post upload
-3. posts view
-4. post view
-5. login refactoring
-    5.1 when getting user, it should be encapsulized by user model
+1. posts view
+2. post view
+3. login refactoring
+    3.1 when getting user, it should be encapsulized by user model
+4. comment
+5. category name uniqueness?
