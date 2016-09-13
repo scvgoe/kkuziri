@@ -21,6 +21,10 @@ class Post(db.Model):
         self.category_id = category_id
 
     @staticmethod
+    def get_post(id):
+        return Post.query.get(id)
+
+    @staticmethod
     def get_posts(category_name=None):
         if (category_name==None):
             posts = Post.query.order_by(Post.created_at)

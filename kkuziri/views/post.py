@@ -13,9 +13,8 @@ def posts_from_category():
     return render_template('posts.html')
 
 @app.route('/post/<id>')
-def post():
-    # show post
-    return render_template('post.html')
+def post(id):
+    return render_template('post.html', post=Post.get_post(id))
 
 @app.route('/post/new', methods=['GET', 'POST'])
 def new_post():
