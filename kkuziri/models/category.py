@@ -39,3 +39,6 @@ class Category(db.Model):
         categories = Category.query.order_by(Category.name)
         db.session.commit()
         return categories
+
+    def get_posts(self):
+        return self.posts

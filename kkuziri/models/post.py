@@ -19,3 +19,14 @@ class Post(db.Model):
         self.created_at = datetime.now()
         self.views = 0
         self.category_id = category_id
+
+    @staticmethod
+    def get_posts(category_name=None):
+        if (category_name==None):
+            posts = Post.query.order_by(Post.created_at)
+        else:
+            # TODO category name validation check
+            category = Category.get_category(category_name)
+            posts = category.get_posts()
+
+        return posts

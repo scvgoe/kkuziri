@@ -2,8 +2,12 @@ from flask import render_template, url_for, request, session, flash, redirect
 from kkuziri.models import User, Category, Post
 from kkuziri import app, db
 
-@app.route('/posts/<category>')
+@app.route('/posts')
 def posts():
+    return render_template('posts.html')
+
+@app.route('/posts/<category>')
+def posts_from_category():
     # show list of posts
     # including all subcategory's posts
     return render_template('posts.html')

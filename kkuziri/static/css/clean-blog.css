@@ -41,7 +41,7 @@ blockquote {
 }
 hr.small {
   max-width: 100px;
-  margin: 15px auto;
+  margin: 10px auto;
   border-width: 4px;
   border-color: white;
 }
@@ -87,7 +87,7 @@ hr.small {
   }
   .navbar-custom .nav li a:hover,
   .navbar-custom .nav li a:focus {
-    color: rgba(255, 255, 255, 0.8);
+    color: #0085A1;
   }
 }
 @media only screen and (min-width: 1170px) {
@@ -233,20 +233,19 @@ hr.small {
   color: #0085A1;
 }
 .post-preview > a > .post-title {
-  font-size: 30px;
-  margin-top: 30px;
-  margin-bottom: 10px;
+  font-size: 18px;
+  margin-top: 10px;
+  margin-bottom: 5px;
 }
 .post-preview > a > .post-subtitle {
   margin: 0;
   font-weight: 300;
-  margin-bottom: 10px;
 }
 .post-preview > .post-meta {
   color: #777777;
-  font-size: 18px;
-  font-style: italic;
+  font-size: 15px;
   margin-top: 0;
+  margin-bottom: 0;
 }
 .post-preview > .post-meta > a {
   text-decoration: none;
@@ -259,7 +258,7 @@ hr.small {
 }
 @media only screen and (min-width: 768px) {
   .post-preview > a > .post-title {
-    font-size: 36px;
+    font-size: 25px;
   }
 }
 .section-heading {
