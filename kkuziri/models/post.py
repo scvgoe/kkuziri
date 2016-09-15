@@ -25,12 +25,14 @@ class Post(db.Model):
         return Post.query.get(id)
 
     @staticmethod
-    def get_posts(category_name=None):
+    def get_posts(category_name=None, page=1):
         if (category_name==None):
-            posts = Post.query.order_by(Post.created_at)
+            posts = Post.query.\
+                    order_by(Post.created_at.desc()).\
+                    paginate(page, per_page=10)
         else:
             # TODO category name validation check
             category = Category.get_category(category_name)
-            posts = category.get_posts()
+            posts = category.get_posts(page=page)
 
         return posts

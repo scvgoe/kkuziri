@@ -1,4 +1,49 @@
 {% extends "basic.html" %}
 {% block body %}
-posts
+
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            {% for post in pagination.items %}
+            <div class="post-preview">
+                <a href="/post/{{post.id}}">
+                    <h2 class="post-title">
+                        {{post.title}}
+                    </h2>
+                </a>
+                <p class="post-meta"></p>{{post.created_at.strftime('%Y %m %d %H:%M')}}</p>
+            </div>
+            <hr>
+            {% endfor %}
+
+            <!-- Pager -->
+            <div class="text-center">
+                <ul class="pagination">
+                    {% if pagination.page>5 %}
+                    <li>
+                    <a href="{{ url_for('posts', page=(pagination.page-1)//5*5) }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                    </li>
+                    {% endif %}
+                    {% for page in range((pagination.page-1)//5*5+1, pagination.pages+1 if pagination.pages<(pagination.page-1)//5*5+6 else (pagination.page-1)//5*5+6) %}
+                    {% if page != pagination.page %}
+                    <li><a href="{{url_for('posts', page=page)}}">{{ page }}</a></li>
+                    {% else %}
+                    <li class="active"><a href="{{url_for('posts', page=page)}}">{{ page }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if (pagination.pages-1)//5>(pagination.page-1)//5 %}
+                    <li>
+                    <a href="{{url_for('posts', page=(pagination.page-1)//5*5+6)}}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

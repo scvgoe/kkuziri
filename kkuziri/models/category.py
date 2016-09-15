@@ -40,5 +40,6 @@ class Category(db.Model):
         db.session.commit()
         return categories
 
-    def get_posts(self):
-        return self.posts
+    def get_posts(self, page=1):
+        return self.posts.order_by(Post.created_at.desc()).\
+                    paginate(page, per_page=10)

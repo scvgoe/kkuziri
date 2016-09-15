@@ -2,15 +2,19 @@ from flask import render_template, url_for, request, session, flash, redirect
 from kkuziri.models import User, Category, Post
 from kkuziri import app, db
 
-@app.route('/posts')
-def posts():
-    return render_template('posts.html')
+@app.route('/posts', defaults={'page': 1})
+@app.route('/posts/<page>')
+def posts(page):
+    return render_template('posts.html',
+                            pagination=Post.get_posts(page=int(page)))
 
-@app.route('/posts/<category>')
-def posts_from_category():
+@app.route('/posts/<category>/<page>')
+def posts_from_category(category, page):
     # show list of posts
     # including all subcategory's posts
-    return render_template('posts.html')
+    return render_template('posts.html',
+            pagination=Post.get_posts(category_name=category,
+                                      page=int(page)))
 
 @app.route('/post/<id>')
 def post(id):
@@ -42,7 +46,7 @@ def new_post():
         db.session.add(post)
         db.session.commit()
 
-        return redirect(url_for('post/%s' % post.id))
+        return redirect(url_for('post', id=post.id))
 
 @app.route('/post/<id>/delete')
 def delete_post():
