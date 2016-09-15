@@ -4,7 +4,7 @@ from kkuziri.models import Category, Post
 
 @app.route('/')
 def index():
-    return render_template('index.html', page=Post.get_posts())
+    return render_template('index.html', page=Post.get_posts(per_page=5))
 
 @app.route('/test', methods=['GET', 'POST'])
 def test():
