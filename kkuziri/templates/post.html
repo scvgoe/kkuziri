@@ -13,6 +13,7 @@
                 {% endif %}
                 <span class="meta">{{post.created_at.strftime('%Y %m %d %H:%M')}}</span>
             </div>
+            <hr>
         </div>
     </div>
 </div>
@@ -23,9 +24,13 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            {{ post.body}}
+            <div class='markdown'>{{ post.body}}</div>
         </div>
     </div>
 </div>
 </article>
+{% endblock %}
+{% block script %}
+<script src="http://toopay.github.io/bootstrap-markdown/js/markdown.js"></script>
+<script src="../static/js/markdown.js"></script>
 {% endblock %}
