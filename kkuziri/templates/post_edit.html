@@ -16,26 +16,32 @@
 </div>
 </header>
 
-<form method='POST' action='/post/new'>
-    <input name="title" type="text" placeholder="Title" />
-    <div class="form-group">
-        <label for="category">Category</label>
-        <select class="form-control" name='category' id="category">
-            {% for category in categories %}
-            <option>{{category.get_full_name()}}</option>
-            {% endfor %} 
-            <option>Root</option>
-        </select>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <form method='POST' action='/post/new'>
+                <input class="form-control input-lg" name="title" type="text" placeholder="Title" />
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select class="form-control" name='category' id="category">
+                        {% for category in categories %}
+                        <option>{{category.get_full_name()}}</option>
+                        {% endfor %} 
+                        <option>Root</option>
+                    </select>
+                </div>
+                <textarea name="body" data-provide="markdown" rows="30"></textarea>
+                <hr/>
+                <button type="submit" class="btn">Submit</button>
+            </form> 
+        </div>
     </div>
-    <textarea name="body" data-provide="markdown" rows="30"></textarea>
-    <hr/>
-    <button type="submit" class="btn">Submit</button>
-</form> 
+</div>
 
 {% endblock %}
 {% block script %}
-    <link rel="stylesheet" type="text/css" media="screen" href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-markdown/2.2.1/css/bootstrap-markdown.min.css">
-    <script src="http://toopay.github.io/bootstrap-markdown/js/markdown.js"></script>
-    <script src="http://toopay.github.io/bootstrap-markdown/js/to-markdown.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-markdown/2.2.1/js/bootstrap-markdown.js"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-markdown/2.2.1/css/bootstrap-markdown.min.css">
+<script src="http://toopay.github.io/bootstrap-markdown/js/markdown.js"></script>
+<script src="http://toopay.github.io/bootstrap-markdown/js/to-markdown.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-markdown/2.2.1/js/bootstrap-markdown.js"></script>
 {% endblock %}

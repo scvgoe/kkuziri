@@ -7,24 +7,64 @@
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <div class="page-heading">
-                <h1></h1>
+                <h1>Login</h1>
                 <hr class="small">
-                <span class="subheading">Have questions? I have answers (maybe).</span>
+                <span class="subheading">Guest login with social account.</span>
             </div>
         </div>
     </div>
 </div>
 </header>
 
-<h2>Login</h2>
-{% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
-<form action="{{ url_for('login') }}" method=post>
-    <dl>
-        <dt>Username:
-        <dd><input type=text name=username>
-        <dt>Password:
-        <dd><input type=password name=password>
-        <dd><input type=submit value=Login>
-    </dl>
-</form>
+<div class="container">
+    <div class="omb_login">
+        <div class="row omb_row-sm-offset-3 omb_socialButtons">
+            <div class="col-xs-4 col-sm-2">
+                <a href="#" class="btn btn-lg btn-block omb_btn-facebook">
+                    <i class="fa fa-facebook visible-xs"></i>
+                    <span class="hidden-xs">Facebook</span>
+                </a>
+            </div>
+            <div class="col-xs-4 col-sm-2">
+                <a href="#" class="btn btn-lg btn-block omb_btn-twitter">
+                    <i class="fa fa-twitter visible-xs"></i>
+                    <span class="hidden-xs">Twitter</span>
+                </a>
+            </div>  
+            <div class="col-xs-4 col-sm-2">
+                <a href="#" class="btn btn-lg btn-block omb_btn-google">
+                    <i class="fa fa-google-plus visible-xs"></i>
+                    <span class="hidden-xs">Google+</span>
+                </a>
+            </div>  
+        </div>
+
+        <div class="row omb_row-sm-offset-3 omb_loginOr">
+            <div class="col-xs-12 col-sm-6">
+                <hr class="omb_hrOr">
+                <span class="omb_spanOr">or</span>
+            </div>
+        </div>
+
+        <div class="row omb_row-sm-offset-3">
+            <div class="col-xs-12 col-sm-6">    
+                <form class="omb_loginForm" action="{{ url_for('login') }}" autocomplete="off" method="POST">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                        <input type="text" class="form-control" name="username" placeholder="Username">
+                    </div>
+                    <span class="help-block"></span>
+
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                        <input  type="password" class="form-control" name="password" placeholder="Password">
+                    </div>
+                    <span class="help-block"></span>
+
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
