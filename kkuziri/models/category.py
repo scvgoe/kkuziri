@@ -13,8 +13,17 @@ class Category(db.Model):
         if parent_category_id is not None:
             self.parent_category_id = parent_category_id
 
-    def get_id(self):
-        return self.id
+    @staticmethod
+    def get_category(name):
+        category = Category.query.filter_by(name=name).first()
+        db.session.commit()
+        return category
+
+    @staticmethod
+    def get_categories():
+        categories = Category.query.order_by(Category.name)
+        db.session.commit()
+        return categories
 
     def get_full_name(self):
         full_name = self.name
@@ -27,18 +36,6 @@ class Category(db.Model):
         db.session.commit()
 
         return full_name
-
-    @staticmethod
-    def get_category(name):
-        category = Category.query.filter_by(name=name).first()
-        db.session.commit()
-        return category
-
-    @staticmethod
-    def get_categories():
-        categories = Category.query.order_by(Category.name)
-        db.session.commit()
-        return categories
 
     def get_posts(self, page=1, per_page=10):
         return self.posts.order_by(Post.created_at.desc()).\
