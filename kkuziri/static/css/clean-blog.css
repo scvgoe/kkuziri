@@ -385,6 +385,10 @@ form .row:first-child .floating-label-form-group {
   background-color: #333333;
   cursor: not-allowed;
 }
+.pager-btn li > a,
+.pager-btn li > span {
+  padding: 8px 15px;
+}
 ::-moz-selection {
   color: white;
   text-shadow: none;

@@ -1,5 +1,6 @@
 from kkuziri import db
 from datetime import datetime
+from category import * 
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -36,3 +37,20 @@ class Post(db.Model):
             posts = category.get_posts(page=page, per_page=per_page)
 
         return posts
+
+    @staticmethod
+    def new_post(title, body, author_id, category_name):
+        category = Category.get_category(category_name)
+        post = Post(title, body, author_id, category.id)
+        db.session.add(post)
+        db.session.commit()
+
+        return post
+
+    def edit_post(self, title, body, category_name):
+        self.title = title
+        self.body = body
+        self.category = Category.get_category(category_name)
+        self.modified_at = datetime.now()
+
+        db.session.commit()

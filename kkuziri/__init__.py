@@ -2,6 +2,8 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 
+import markdown
+
 app = Flask(__name__)
 
 try:
@@ -12,5 +14,9 @@ except:
 # db = SQLAlchemy(app, session_options={'autocommit': True})
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
+
+# jinja2 function add
+# markdown fucntion call in jinja2
+app.jinja_env.globals.update(markdown=markdown.markdown)
 
 from views import *
