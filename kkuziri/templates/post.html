@@ -39,4 +39,37 @@
     </div>
 </div>
 </article>
+
+
+<!-- Comment -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <hr/>
+            <!-- Comments Form -->
+            <div class="well">
+                <h4>Leave a Comment:</h4>
+                <form method='POST' action="/comment/new/{{ post.id }}">
+                    <div class="form-group">
+                        <textarea class="form-control" name="body" rows="3" {% if not session.logged_in %} disabled {% endif %}></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+            {% for comment in post.get_comments() %}
+            <div class="media">
+                <a class="pull-left" href="#">
+                    <img class="media-object" src="http://placehold.it/64x64" alt="">
+                </a>
+                <div class="media-body">
+                    <h4 class="media-heading">{{ comment.author_id }}
+                        <small>{{comment.created_at.strftime('%Y %m %d %H:%M')}}</small>
+                    </h4>
+                    {{ comment.body }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 {% endblock %}

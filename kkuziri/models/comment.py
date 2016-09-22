@@ -4,25 +4,23 @@ from datetime import datetime
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     body = db.Column(db.Text)
-    author_name = db.Column(db.String(64))
-    _password = db.Column(db.String(128))
+    author_id = db.Column(db.String(64))
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
     created_at = db.Column(db.DateTime)
     modified_at = db.Column(db.DateTime)
 
-    def __init__(self, body, author_name, password, post_id):
+    def __init__(self, body, author_id, post_id):
         self.body = body
-        self.author_name = author_name
+        self.author_id = author_id
         self.post_id = post_id
-        slef.create_at = datetime.now()
-        self.set_password(password)
+        self.created_at = datetime.now()
 
-    def get_password(self):
-        return self._password
+    @staticmethod
+    def new_comment(body, author_id, post_id):
+        comment = Comment(body, author_id, post_id)
 
-    def set_password(self, plaintext):
-        self._password = bcrypt.generate_password_hash(plaintext)
+        db.session.add(comment)
+        db.session.commit()
 
-    def is_correct_password(self, plaintext):
-        return bcrypt.check_password_hash(self._password, plaintext)
+        return comment
 

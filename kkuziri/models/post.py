@@ -1,6 +1,7 @@
 from kkuziri import db
 from datetime import datetime
 from category import * 
+from comment import *
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -54,3 +55,6 @@ class Post(db.Model):
         self.modified_at = datetime.now()
 
         db.session.commit()
+
+    def get_comments(self):
+        return self.comments.order_by(Comment.created_at.desc())
