@@ -4,7 +4,7 @@ from kkuziri.models import *
 db.drop_all()
 db.create_all()
 
-admin = User("admin_id", "admin pw")
+admin = User("admin_id", "admin_pw")
 db.session.add(admin)
 db.session.commit()
 
