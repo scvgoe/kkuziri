@@ -3,6 +3,8 @@ NOW
 - form validation check
 - authority check
 - https setting
+- aws locale setting
+- social login
 
 auth check
 - post new
