@@ -1,28 +1,9 @@
-/etc/init/kkuziri.conf
-
-description "uWSGI server instance configured to serve kkuziri"
-
-start on runlevel [2345]
-stop on runlevel [!2345]
-
-setuid scvgoe
-setgid www-data
-
-env PATH=/home/scvgoe/kkuziri/venv/bin
-chdir /home/scvgoe/kkuziri
-exec uwsgi --ini myproject.ini
-
-
-
-
-/etc/nginx/sites-available/kkuziri
-
 server {
     listen 80;
     server_name kkuziri.io;
 
     # Redirect all HTTP requests to HTTPS with a 301 Moved Permanently response.
-    return 301 https://kkuziri.io$request_uri;
+    return 301 https://$host$request_uri;
 }
 
 server {
@@ -30,7 +11,7 @@ server {
     server_name www.kkuziri.io;
 
     # Redirect all HTTP requests to HTTPS with a 301 Moved Permanently response.
-    return 301 https://kkuziri.io$request_uri;
+    return 301 https://$host$request_uri;
 }
 
 server {
@@ -107,4 +88,3 @@ server {
 
     return 301 https://kkuziri.io$request_uri;
 }
-
