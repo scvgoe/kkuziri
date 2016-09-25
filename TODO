@@ -1,6 +1,44 @@
-1. posts view
-2. post view
-3. login refactoring
-    3.1 when getting user, it should be encapsulized by user model
-4. comment
-5. category name uniqueness?
+NOW
+- comment on me
+- form validation check
+- authority check
+- https setting
+
+auth check
+- post new
+- post edit
+
+category
+- category function is postponed until it is needed.
+
+posts & category view
+- can view list of categories when clicking a posts button on the navbar.
+- each element of list driven by dropdown.
+- each element's name include number of posts.
+- on the bottom of list of categories, there is a button to add a category.
+- when clicking one of categories, then show list of posts 
+- each element's name include number of comments.
+
+post view
+- on the top of the post page, it should include information about current
+  category.
+- recent posts?
+
+login refactoring
+- when getting user, it should be encapsulized by user model
+
+comment on post
+- normal concept of comments on post.
+
+comment on me
+- 방명록
+
+Guest login
+- facebook
+- google
+- twitter
+
+else
+- category name uniqueness?
+- js, css to min file.
+- posts/<page> -> posts/all/<page> ??
