@@ -1,13 +1,34 @@
 NOW
-- comment on me
+- logging
 - form validation check
 - authority check
 - social login
 - special board for moziri
+- ssl cert renew crontab
+- comment on me
 
 auth check
-- post new
-- post edit
+- post new - selected users
+- post edit - only writer
+- post delete - writer & selected users
+- comment new - logined users
+- comment edit - only writer
+- comment delete - writer & selected users
+
+post view
+- on the top of the post page, it should include information about current
+  category.
+- recent posts?
+
+login refactoring
+- when getting user, it should be encapsulized by user model
+
+comment on me
+- 방명록
+
+Social login
+- facebook
+- github
 
 category
 - category function is postponed until it is needed.
@@ -19,25 +40,6 @@ posts & category view
 - on the bottom of list of categories, there is a button to add a category.
 - when clicking one of categories, then show list of posts 
 - each element's name include number of comments.
-
-post view
-- on the top of the post page, it should include information about current
-  category.
-- recent posts?
-
-login refactoring
-- when getting user, it should be encapsulized by user model
-
-comment on post
-- normal concept of comments on post.
-
-comment on me
-- 방명록
-
-Guest login
-- facebook
-- google
-- twitter
 
 else
 - category name uniqueness?
