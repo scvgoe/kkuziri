@@ -1,11 +1,12 @@
 NOW
-- logging
 - form validation check
+    - frontend
 - authority check
 - social login
 - special board for moziri
 - ssl cert renew crontab
 - comment on me
+- logging
 
 auth check
 - post new - selected users

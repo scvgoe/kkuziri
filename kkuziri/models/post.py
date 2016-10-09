@@ -2,6 +2,7 @@ from kkuziri import db
 from datetime import datetime
 from category import * 
 from comment import *
+from user import *
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -22,6 +23,22 @@ class Post(db.Model):
         self.views = 0
         self.category_id = category_id
 
+    def edit_post(self, title, body, category_name):
+        if not Post.is_valid(title, body, self.author_id, category_name):
+            return self 
+
+        self.title = title
+        self.body = body
+        self.category = Category.get_category(category_name)
+        self.modified_at = datetime.now()
+
+        db.session.commit()
+
+        return self
+
+    def get_comments(self):
+        return self.comments.order_by(Comment.created_at.desc())
+
     @staticmethod
     def get_post(id):
         return Post.query.get(id)
@@ -40,21 +57,29 @@ class Post(db.Model):
         return posts
 
     @staticmethod
+    def is_valid(title, body, author_id, category_name):
+        if title == None or title == '':
+            return False
+        
+        if body == None or body == '':
+            return False
+        
+        if User.get_user(author_id) == None:
+            return False
+
+        if Category.get_category(category_name) == None:
+            return False
+        
+        return True
+
+    @staticmethod
     def new_post(title, body, author_id, category_name):
+        if not Post.is_valid(title, body, author_id, category_name):
+            return None
+
         category = Category.get_category(category_name)
         post = Post(title, body, author_id, category.id)
         db.session.add(post)
         db.session.commit()
 
         return post
-
-    def edit_post(self, title, body, category_name):
-        self.title = title
-        self.body = body
-        self.category = Category.get_category(category_name)
-        self.modified_at = datetime.now()
-
-        db.session.commit()
-
-    def get_comments(self):
-        return self.comments.order_by(Comment.created_at.desc())

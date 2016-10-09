@@ -14,16 +14,14 @@ class Category(db.Model):
             self.parent_category_id = parent_category_id
 
     @staticmethod
-    def get_category(name):
-        category = Category.query.filter_by(name=name).first()
-        db.session.commit()
-        return category
-
-    @staticmethod
     def get_categories():
         categories = Category.query.order_by(Category.name)
-        db.session.commit()
         return categories
+
+    @staticmethod
+    def get_category(name):
+        category = Category.query.filter_by(name=name).first()
+        return category
 
     def get_full_name(self):
         full_name = self.name
@@ -33,7 +31,6 @@ class Category(db.Model):
             parent = Category.query.get(parent_id)
             full_name = parent.name + '/' + full_name
             parent_id = parent.parent_category_id
-        db.session.commit()
 
         return full_name
 

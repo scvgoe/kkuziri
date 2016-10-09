@@ -13,14 +13,18 @@ class User(db.Model):
         self.set_password(plaintext)
         self.created_at = datetime.now()
 
+    def get_id(self):
+        return self.id
+
     def get_password(self):
         return self._password
 
-    def set_password(self, plaintext):
-        self._password = bcrypt.generate_password_hash(plaintext)
+    @staticmethod
+    def get_user(id):
+        return User.query.get(id)
 
     def is_correct_password(self, plaintext):
         return bcrypt.check_password_hash(self._password, plaintext)
     
-    def get_id(self):
-        return self.id
+    def set_password(self, plaintext):
+        self._password = bcrypt.generate_password_hash(plaintext)
