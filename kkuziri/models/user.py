@@ -4,13 +4,13 @@ from datetime import datetime
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(64), unique=True)
+    name = db.Column(db.String(128))
     _password = db.Column(db.String(128))
     posts = db.relationship('Post', backref='author', lazy='dynamic')
     created_at = db.Column(db.DateTime)
     
-    def __init__(self, username, plaintext):
+    def __init__(self, username):
         self.username = username
-        self.set_password(plaintext)
         self.created_at = datetime.now()
 
     def get_id(self):
@@ -26,5 +26,8 @@ class User(db.Model):
     def is_correct_password(self, plaintext):
         return bcrypt.check_password_hash(self._password, plaintext)
     
+    def set_name(self, name):
+        self.name = name
+
     def set_password(self, plaintext):
         self._password = bcrypt.generate_password_hash(plaintext)
