@@ -26,6 +26,10 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
+
+        <!-- Extra Script -->
+        {% block script_above %}{% endblock %}
+
     </head>
 
     <body>
@@ -113,7 +117,7 @@
         <script src="/static/js/clean-blog.js"></script>
 
         <!-- Extra Script -->
-        {% block script %}{% endblock %}
+        {% block script_below %}{% endblock %}
 
     </body>
 
