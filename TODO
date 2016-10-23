@@ -1,12 +1,11 @@
 NOW
-- form validation check
-    - frontend
 - authority check
+- comment on me
 - social login
 - special board for moziri
 - ssl cert renew crontab
-- comment on me
 - logging
+- meta tag
 
 auth check
 - post new - selected users
@@ -15,6 +14,7 @@ auth check
 - comment new - logined users
 - comment edit - only writer
 - comment delete - writer & selected users
+- login should be blocked when user is logged in already
 
 post view
 - on the top of the post page, it should include information about current
