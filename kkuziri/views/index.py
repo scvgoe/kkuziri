@@ -3,6 +3,7 @@ from kkuziri import app
 from kkuziri.models import Category, Post
 
 @app.route('/')
+@app.route('/index')
 def index():
     return render_template('index.html', page=Post.get_posts(per_page=5))
 
