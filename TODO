@@ -6,6 +6,7 @@ NOW
 - ssl cert renew crontab
 - logging
 - meta tag
+- applying RESTful api
 
 auth check
 - post new - selected users
