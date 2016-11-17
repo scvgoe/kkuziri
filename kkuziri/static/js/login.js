@@ -67,11 +67,11 @@ function login() {
 			dataType: "json",
 			success:function(args){ 
 				console.log("success");
-				window.location.replace("http://local.kkuziri.io:5000/index");
+				window.location.replace("/index");
 			},
 			error:function(e) {
 				console.log("fail");
-				window.location.replace("http://local.kkuziri.io:5000/login");
+				window.location.replace("/login");
 			}
 		});        
 	});
