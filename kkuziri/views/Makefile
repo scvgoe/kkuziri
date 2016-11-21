@@ -1,2 +1,2 @@
-clean : 
-	rm *.pyc .*.swp
+clean :
+	@rm -f *.pyc .*.swp
