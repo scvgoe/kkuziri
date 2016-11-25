@@ -24,7 +24,8 @@ class Post(db.Model):
         self.category_id = category_id
 
     def delete(self):
-        return True
+        db.session.delete(self)
+        db.session.commit()
 
     def edit(self, title, body, category_name):
         if not Post.is_valid(title, body, self.author_id, category_name):
