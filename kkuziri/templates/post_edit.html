@@ -1,4 +1,4 @@
-{% extends "basic.html" %}
+{% extends "base.html" %}
 {% block body %}
 <!-- Page Header -->
 <!-- Set your background image for this header on the line below. -->
@@ -19,7 +19,7 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <form method='POST' action='/post/edit/{{ post.id }}'>
+            <form method='POST' action="{{url_for('get_post', id=post.id)}}">
                 <input class="form-control input-lg" name="title" type="text"
                 placeholder="Title" value="{{ post.title }}"/>
                 <div class="form-group">

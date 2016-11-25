@@ -1,5 +1,5 @@
-from kkuziri import db, bcrypt
 from datetime import datetime
+from kkuziri import db, bcrypt
 from post import *
 
 class Comment(db.Model):
@@ -28,7 +28,7 @@ class Comment(db.Model):
 
     @staticmethod
     def new_comment(body, author_id, post_id):
-        if not Comment.is_valid(body, author_id, post_id):
+        if not is_valid(body, author_id, post_id):
             return None
 
         comment = Comment(body, author_id, post_id)

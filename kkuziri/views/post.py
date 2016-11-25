@@ -2,62 +2,57 @@ from flask import render_template, url_for, request, session, flash, redirect
 from kkuziri.models import User, Category, Post
 from kkuziri import app
 
-@app.route('/post/<id>/delete')
-def delete_post():
-    # category = post<id>'s category
-    return redirect(url_for('posts', category=category))
+@app.route('/posts', methods=['POST'])
+def new_post():
+    post = Post.new_post(request.form.get('title'),
+            request.form.get('body'),
+            session['user_id'],
+            request.form.get('category').split('/')[-1])
 
-@app.route('/post/edit/<id>', methods=['GET', 'POST'])
-def edit_post(id):
-    if not 'logged_in' in session or session['logged_in'] is not True:
-        flash('You have to be logged in')
-        return render_template('index.html')
+    if post != None:
+        return redirect(url_for('get_post', id=post.id))
 
+@app.route('/posts/<id>', methods=['GET'])
+def get_post(id):
     if request.method == 'GET':
-        return render_template('post_edit.html', post=Post.get_post(id),
-                            categories=Category.get_categories())
-
-    elif request.method == 'POST':
         post = Post.get_post(id)
-        post = post.edit_post(request.form.get('title'),
+        if post != None:
+            return render_template('post.html', post=Post.get_post(id))
+
+@app.route('/posts/<id>', methods=['POST'])
+def edit_post(id):
+    if request.method == 'POST':
+        post = Post.get_post(id)
+
+        if post != None:
+            post = post.edit(request.form.get('title'),
                        request.form.get('body'),
                        request.form.get('category').split('/')[-1])
         
-        return redirect(url_for('post', id=post.id))
+        return redirect(url_for('get_post', id=post.id))
 
-@app.route('/post/new', methods=['GET', 'POST'])
-def new_post():
-    if not 'logged_in' in session or session['logged_in'] is not True:
-        flash('You have to be logged in')
-        return render_template('index.html')
+@app.route('/posts/<id>', methods=['DELETE'])
+def delete_post(id):
+    if request.method == 'DELETE':
+        post = Post.get_post(id)
+        if post != None:
+            post.delete()
+            return redirect(url_for('get_post_list'))
 
-    if request.method == 'GET':
+@app.route('/posts/edit', defaults={'id': None})
+@app.route('/posts/edit/<int:id>', methods=['GET'])
+def get_post_editor(id):
+    if id == None:
         return render_template('post_new.html',
                 categories=Category.get_categories())
+    else:
+        if request.method == 'GET':
+            post = Post.get_post(id)
+            if post != None:
+                return render_template('post_edit.html', post=Post.get_post(id),
+                        categories=Category.get_categories())
 
-    elif request.method == 'POST':
-        post = Post.new_post(request.form.get('title'),
-                             request.form.get('body'),
-                             session['user_id'],
-                             request.form.get('category').split('/')[-1])
-        
-        if not post == None:
-            return redirect(url_for('post', id=post.id))
-
-@app.route('/post/<id>')
-def post(id):
-    return render_template('post.html', post=Post.get_post(id))
-
-@app.route('/posts', defaults={'page': 1})
-@app.route('/posts/<page>')
-def posts(page):
-    return render_template('posts.html',
-                            pagination=Post.get_posts(page=int(page)))
-
-@app.route('/posts/<category>/<page>')
-def posts_from_category(category, page):
-    # show list of posts
-    # including all subcategory's posts
-    return render_template('posts.html',
-            pagination=Post.get_posts(category_name=category,
-                                      page=int(page)))
+@app.route('/posts/list', defaults={'page': 1})
+@app.route('/posts/list/<int:page>')
+def get_post_list(page):
+    return render_template('post_list.html', pagination=Post.get_posts(page=page))

@@ -2,9 +2,12 @@ from flask import render_template, url_for, request, redirect
 from kkuziri.models import Category
 from kkuziri import app, db
 
-@app.route('/category/new', methods=['GET', 'POST'])
+@app.route('/categories', methods=['GET', 'POST'])
 def new_category():
-    if request.method == 'POST':
+    if request.method == 'GET':
+        return redirect(url_for('test'))
+        
+    elif request.method == 'POST':
         parent_name = request.form.get('parent_name').split('/')[-1]
         name = request.form.get('name')
         parent = Category.get_category(parent_name)
@@ -16,7 +19,4 @@ def new_category():
 
         db.session.add(category)
         db.session.commit()
-        return redirect(url_for('test'))
-
-    else:
         return redirect(url_for('test'))

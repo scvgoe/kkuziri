@@ -1,13 +1,11 @@
 NOW
-- facebook comments plugin
 - authority check
-- comment on me
-- social login
-- special board for moziri
-- ssl cert renew crontab
-- logging
 - meta tag
+- ssl cert renew crontab
 - applying RESTful api
+- comment on me
+- special board for moziri
+- post delete
 
 auth check
 - post new - selected users
@@ -30,7 +28,6 @@ comment on me
 - 방명록
 
 Social login
-- facebook
 - github
 
 category
@@ -43,6 +40,10 @@ posts & category view
 - on the bottom of list of categories, there is a button to add a category.
 - when clicking one of categories, then show list of posts 
 - each element's name include number of comments.
+
+RESTful api
+- replace form request to javascript ajax to complete RESTful api
+    - because HTML action doesn't support 'PUT', 'DELETE' methods
 
 else
 - category name uniqueness?

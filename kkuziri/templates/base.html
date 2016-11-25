@@ -49,21 +49,21 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                    <a href="/">Home</a>
+                        <a href="{{url_for('index')}}">Home</a>
                     </li>
                     <li>
-                    <a href="/about">About</a>
+                        <a href="{{url_for('about')}}">About</a>
                     </li>
                     <li>
-                    <a href="/posts">Posts</a>
+                        <a href="{{url_for('get_post_list')}}">Posts</a>
                     </li>
                     {% if not session.logged_in %}
                     <li>
-                    <a href="/login">login</a>
+                        <a href="{{url_for('login')}}">login</a>
                     </li>
                     {% else %}
                     <li>
-                    <a href="/logout">logout</a>
+                        <a href="{{url_for('logout')}}">logout</a>
                     </li>
                     {% endif %}
                 </ul>

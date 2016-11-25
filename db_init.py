@@ -4,7 +4,7 @@ from kkuziri.models import *
 db.drop_all()
 db.create_all()
 
-admin = User("admin_id", "admin_pw")
+admin = User("admin_id")
 db.session.add(admin)
 db.session.commit()
 
@@ -19,4 +19,3 @@ db.session.commit()
 comment = Comment("Bye, world!", admin.id, post.id)
 db.session.add(comment)
 db.session.commit()
-

@@ -23,7 +23,10 @@ class Post(db.Model):
         self.views = 0
         self.category_id = category_id
 
-    def edit_post(self, title, body, category_name):
+    def delete(self):
+        return True
+
+    def edit(self, title, body, category_name):
         if not Post.is_valid(title, body, self.author_id, category_name):
             return self 
 

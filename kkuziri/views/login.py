@@ -23,7 +23,6 @@ def login():
 
 @app.route('/login/facebook', methods=['POST'])
 def login_facebook():
-    error = 'Invalid try'
     if request.method == 'POST':
         user = User.\
                     query.\
