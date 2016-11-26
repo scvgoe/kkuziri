@@ -1,7 +1,7 @@
 NOW
 - throw 404 pate, or etc...
-- ssl cert renew crontab (expired at 12/24 2016)
 - applying RESTful api
+- ssl cert renew crontab (expired at 12/24 2016)
 - comment on me
 - special board for moziri
 
@@ -34,4 +34,3 @@ RESTful api
 else
 - category name uniqueness?
 - js, css to min file.
-- posts/<page> -> posts/all/<page> ??

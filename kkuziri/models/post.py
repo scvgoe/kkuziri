@@ -1,8 +1,8 @@
 from kkuziri import db
 from datetime import datetime
-from category import * 
-from comment import *
-from user import *
+from category import Category
+from comment import Comment
+from user import User
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -39,6 +39,9 @@ class Post(db.Model):
         db.session.commit()
 
         return self
+
+    def get_author(self):
+        return self.author
 
     def get_author_id(self):
         return self.author_id
