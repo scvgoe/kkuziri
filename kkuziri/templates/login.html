@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
 {% block script_above %}
-<script src="/static/js/facebook.js"></script>
-<script src="/static/js/login.js"></script>
+<script src="{{ url_for('static', filename='js/facebook.js') }}"></script>
+<script src="{{ url_for('static', filename='js/login.js') }}"></script>
 {% endblock %}
 
 {% block body %}

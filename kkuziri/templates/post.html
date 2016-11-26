@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 
 {% block script_above %}
-<script src="/static/js/facebook.js"></script>
+<script src="{{ url_for('static', filename='js/facebook.js') }}"></script>
+<script src="{{ url_for('static', filename='js/share.js') }}"></script>
 {% endblock %}
 
 {% block body %}
@@ -50,9 +51,7 @@
                 </li>
                 {% endif %}
                 <li>
-                    <a class="fb-xfbml-parse-ignore"
-                       target="_blank"
-                       href="https://www.facebook.com/sharer/sharer.php?u&amp;src=sdkpreparse">
+                    <a href="" onclick="share('{{ request.base_url }}')">
                         <span class="fa-1x" aria-hidden="true">
                             <i class="fa fa-facebook"></i>
                         </span>
@@ -83,7 +82,7 @@
             </div>
             {% for comment in post.get_comments() %}
             <div class="media">
-                <a class="pull-left" href="#">
+                <a class="pull-left" href="">
                     <img class="media-object" src="http://placehold.it/64x64" alt="">
                 </a>
                 <div class="media-body">
