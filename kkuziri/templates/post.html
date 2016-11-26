@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}{{ post.title }}{% endblock %}
+{% block title %}{{ post.get_title() }}{% endblock %}
 {% block script_above %}
 <script src="{{ url_for('static', filename='js/facebook.js') }}"></script>
 <script src="{{ url_for('static', filename='js/share.js') }}"></script>
@@ -13,11 +13,11 @@
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <div class="post-heading">
-                <h1>{{ post.title }}</h1>
-                {% if post.modified_at %}
-                <span class="meta">{{post.modified_at.strftime('%Y %m %d %H:%M')}} modified</span>
+                <h1>{{ post.get_title() }}</h1>
+                {% if post.get_modified_at() %}
+                <span class="meta">{{post.get_modified_at().strftime('%Y %m %d %H:%M')}} modified</span>
                 {% endif %}
-                <span class="meta">{{post.created_at.strftime('%Y %m %d %H:%M')}}</span>
+                <span class="meta">{{post.get_created_at().strftime('%Y %m %d %H:%M')}}</span>
             </div>
             <hr>
         </div>
@@ -30,11 +30,11 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            {{ markdown(post.body)|safe }}
+            {{ markdown(post.get_body())|safe }}
             <ul class="pager pager-btn pull-right">
-                {% if Auth.is_writer(post.id) %}
+                {% if Auth.is_writer(post.get_id()) %}
                 <li>
-                    <a href="{{url_for('get_post_editor', id=post.id)}}">
+                    <a href="{{url_for('get_post_editor', id=post.get_id())}}">
                         <span class="fa-1x"
                               aria-hidden="true">
                             <i class="fa fa-pencil"></i>
@@ -44,7 +44,7 @@
                 {% endif %}
                 {% if Auth.is_master() %}
                 <li>
-                    <a href="{{url_for('delete_post', id=post.id)}}">
+                    <a href="{{url_for('delete_post', id=post.get_id())}}">
                         <span class="fa-1x"
                               aria-hidden="true">
                             <i class="fa fa-trash"></i>
@@ -75,7 +75,8 @@
             <!-- Comments Form -->
             <div class="well">
                 <h4>Leave a Comment:</h4>
-                <form method='POST' action="{{url_for('new_comment', post_id=post.id)}}">
+                <form method='POST' action="{{url_for('new_comment',
+                post_id=post.get_id())}}">
                     <div class="form-group">
                         <textarea class="form-control" name="body" rows="3" {%
                             if not Auth.is_login() %} disabled {% endif %}></textarea>

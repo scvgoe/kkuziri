@@ -13,7 +13,7 @@ def new_post():
                 request.form.get('category').split('/')[-1])
 
     if post != None:
-        return redirect(url_for('get_post', id=post.id))
+        return redirect(url_for('get_post', id=post.get_id()))
 
 @app.route('/posts/<id>')
 def get_post(id):
@@ -33,7 +33,7 @@ def edit_post(id):
                        request.form.get('body'),
                        request.form.get('category').split('/')[-1])
         
-        return redirect(url_for('get_post', id=post.id))
+        return redirect(url_for('get_post', id=post.get_id()))
 
 @Auth.auth_master
 @app.route('/posts/<id>', methods=['DELETE'])

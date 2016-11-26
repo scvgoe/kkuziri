@@ -20,14 +20,14 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <form method='POST' action="{{url_for('get_post', id=post.id)}}">
+            <form method='POST' action="{{url_for('get_post', id=post.get_id())}}">
                 <input class="form-control input-lg" name="title" type="text"
-                placeholder="Title" value="{{ post.title }}"/>
+                placeholder="Title" value="{{ post.get_title() }}"/>
                 <div class="form-group">
                     <label for="category">Category</label>
                     <select class="form-control" name='category' id="category">
                         {% for category in categories %}
-                        {% if category.name==post.category.name %}
+                        {% if category.name==post.get_category().name %}
                         <option selected="selected">{{category.get_full_name()}}</option>
                         {% else %}
                         <option>{{category.get_full_name()}}</option>
@@ -36,7 +36,8 @@
                         <option>Root</option>
                     </select>
                 </div>
-                <textarea name="body" data-provide="markdown" rows="30">{{ post.body }}</textarea>
+                <textarea name="body" data-provide="markdown" rows="30">{{
+                    post.get_body() }}</textarea>
                 <hr/>
                 <button type="submit" class="btn">Submit</button>
             </form> 

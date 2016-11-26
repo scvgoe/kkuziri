@@ -40,8 +40,35 @@ class Post(db.Model):
 
         return self
 
+    def get_author_id(self):
+        return self.author_id
+
+    def get_body(self):
+        return self.body
+
+    def get_category(self):
+        return self.category
+
+    def get_category_id(self):
+        return self.category_id
+
     def get_comments(self):
         return self.comments.order_by(Comment.created_at.desc())
+
+    def get_created_at(self):
+        return self.created_at
+
+    def get_id(self):
+        return self.id
+
+    def get_modified_at(self):
+        return self.modified_at
+
+    def get_title(self):
+        return self.title
+
+    def get_views(self):
+        return self.views
 
     @staticmethod
     def get_post(id):

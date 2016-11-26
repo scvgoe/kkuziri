@@ -9,12 +9,12 @@
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             {% for post in pagination.items %}
             <div class="post-preview">
-                <a href="{{url_for('get_post', id=post.id)}}">
+                <a href="{{url_for('get_post', id=post.get_id())}}">
                     <h2 class="post-title">
-                        {{post.title}}
+                        {{post.get_title()}}
                     </h2>
                 </a>
-                <p class="post-meta"></p>{{post.created_at.strftime('%Y %m %d %H:%M')}}</p>
+                <p class="post-meta"></p>{{post.get_created_at().strftime('%Y %m %d %H:%M')}}</p>
             </div>
             <hr>
             {% endfor %}

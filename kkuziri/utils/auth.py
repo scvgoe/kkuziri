@@ -1,5 +1,5 @@
 from flask import session
-from kkuziri.models import Post, User
+from kkuziri.models import Post
 import kkuziri
 
 class Auth():
@@ -37,7 +37,7 @@ class Auth():
     def is_writer(post_id):
         post = Post.get_post(post_id)
         if post != None and 'user_id' in session:
-            if post.author_id == session['user_id']:
+            if post.get_author_id() == session['user_id']:
                 return True
 
         return False
