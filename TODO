@@ -1,20 +1,9 @@
 NOW
-- authority check
-- meta tag
-- ssl cert renew crontab
+- throw 404 pate, or etc...
+- ssl cert renew crontab (expired at 12/24 2016)
 - applying RESTful api
 - comment on me
 - special board for moziri
-- throw 404 pate, or etc...
-
-auth check
-- post new - selected users
-- post edit - only writer
-- post delete - writer & selected users
-- comment new - logined users
-- comment edit - only writer
-- comment delete - writer & selected users
-- login should be blocked when user is logged in already
 
 post view
 - on the top of the post page, it should include information about current

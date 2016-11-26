@@ -32,7 +32,7 @@
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             {{ markdown(post.body)|safe }}
             <ul class="pager pager-btn pull-right">
-                {% if session['user_id']==post.author_id %}
+                {% if Auth.is_writer(post.id) %}
                 <li>
                     <a href="{{url_for('get_post_editor', id=post.id)}}">
                         <span class="fa-1x"
@@ -41,6 +41,8 @@
                         </span>
                     </a>
                 </li>
+                {% endif %}
+                {% if Auth.is_master() %}
                 <li>
                     <a href="{{url_for('delete_post', id=post.id)}}">
                         <span class="fa-1x"
@@ -75,7 +77,8 @@
                 <h4>Leave a Comment:</h4>
                 <form method='POST' action="{{url_for('new_comment', post_id=post.id)}}">
                     <div class="form-group">
-                        <textarea class="form-control" name="body" rows="3" {% if not session.logged_in %} disabled {% endif %}></textarea>
+                        <textarea class="form-control" name="body" rows="3" {%
+                            if not Auth.is_login() %} disabled {% endif %}></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>

@@ -60,13 +60,13 @@
                     <li>
                         <a href="{{url_for('get_post_list')}}">Posts</a>
                     </li>
-                    {% if not session.logged_in %}
+                    {% if Auth.is_login() %}
                     <li>
-                        <a href="{{url_for('login')}}">login</a>
+                        <a href="{{url_for('logout')}}">logout</a>
                     </li>
                     {% else %}
                     <li>
-                        <a href="{{url_for('logout')}}">logout</a>
+                        <a href="{{url_for('login')}}">login</a>
                     </li>
                     {% endif %}
                 </ul>

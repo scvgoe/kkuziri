@@ -1,7 +1,9 @@
 from flask import render_template, url_for, request, redirect
-from kkuziri.models import Category
 from kkuziri import app, db
+from kkuziri.models import Category
+from kkuziri.utils import Auth
 
+@Auth.auth_master
 @app.route('/categories', methods=['GET', 'POST'])
 def new_category():
     if request.method == 'GET':

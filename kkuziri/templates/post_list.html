@@ -22,7 +22,7 @@
             <!-- Pager -->
             <div class="text-center">
                 <ul class="pagination">
-                    {% if pagination.page>5 %}
+                    {% if pagination.page > 5 %}
                     <li>
                     <a href="{{ url_for('get_post_list', page=(pagination.page-1)//5*5) }}" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
@@ -44,10 +44,10 @@
                     </li>
                     {% endif %}
                 </ul>
-                {% if session.logged_in %}
+                {% if Auth.is_master() %}
                 <ul class="pager pager-btn pull-right">
                     <li>
-                        <a href="{{url_for('get_post_editor')}}">
+                        <a href="{{url_for('get_post_creator')}}">
                             <span class="fa-1x"
                                   aria-hidden="true">
                                 <i class="fa fa-pencil"></i>
