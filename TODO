@@ -1,5 +1,6 @@
 NOW
 - throw 404 pate, or etc...
+- comment moedel dependency
 - applying RESTful api
 - ssl cert renew crontab (expired at 12/24 2016)
 - comment on me
