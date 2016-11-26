@@ -90,10 +90,10 @@
                     <img class="media-object" src="http://placehold.it/64x64" alt="">
                 </a>
                 <div class="media-body">
-                    <h4 class="media-heading">{{ comment.author_id }}
-                        <small>{{comment.created_at.strftime('%Y %m %d %H:%M')}}</small>
+                    <h4 class="media-heading">{{ comment.get_author().get_name() }}
+                        <small>{{comment.get_created_at().strftime('%Y %m %d %H:%M')}}</small>
                     </h4>
-                    {{ comment.body }}
+                    {{ comment.get_body() }}
                 </div>
             </div>
             {% endfor %}
