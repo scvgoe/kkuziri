@@ -68,7 +68,7 @@ class Post(db.Model):
         if body == None or body == '':
             return False
         
-        if User.get_user(author_id) == None:
+        if User.get_user(id=author_id) == None:
             return False
 
         if Category.get_category(category_name) == None:

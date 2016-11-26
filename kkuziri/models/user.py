@@ -20,8 +20,17 @@ class User(db.Model):
         return self._password
 
     @staticmethod
-    def get_user(id):
-        return User.query.get(id)
+    def get_user(id=0, username=''):
+        if id != 0:
+            return User.query.get(id)
+
+        elif username != '':
+            return User.\
+                query.\
+                filter_by(username=username).\
+                first()
+
+        return None
 
     def is_correct_password(self, plaintext):
         return bcrypt.check_password_hash(self._password, plaintext)

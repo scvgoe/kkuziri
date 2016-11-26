@@ -5,13 +5,12 @@ import json
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    error = 'Invalid try'
-    if request.method == 'POST':
-        user = User.\
-                    query.\
-                    filter_by(username=request.form['username']).\
-                    first()
-        if (user is not None and
+    if request.method == 'GET':
+        return render_template('login.html')
+
+    elif request.method == 'POST':
+        user = User.get_user(username=request.form['username'])
+        if (user != None and
                 user.is_correct_password(request.form['password'])):
             session['logged_in'] = True
             session['user_id'] = user.get_id()
@@ -24,10 +23,7 @@ def login():
 @app.route('/login/facebook', methods=['POST'])
 def login_facebook():
     if request.method == 'POST':
-        user = User.\
-                    query.\
-                    filter_by(username=request.json['username']).\
-                    first()
+        user = User.get_user(username=request.json['username'])
         if (user is None):
             user = User(request.json['username']) 
             user.set_name(request.json['name'])
