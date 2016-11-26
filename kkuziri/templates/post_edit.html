@@ -27,7 +27,7 @@
                     <label for="category">Category</label>
                     <select class="form-control" name='category' id="category">
                         {% for category in categories %}
-                        {% if category.name==post.get_category().name %}
+                        {% if category.get_name() == post.get_category().get_name() %}
                         <option selected="selected">{{category.get_full_name()}}</option>
                         {% else %}
                         <option>{{category.get_full_name()}}</option>

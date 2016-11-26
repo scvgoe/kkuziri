@@ -109,7 +109,7 @@ class Post(db.Model):
             return None
 
         category = Category.get_category(category_name)
-        post = Post(title, body, author_id, category.id)
+        post = Post(title, body, author_id, category.get_id())
         db.session.add(post)
         db.session.commit()
 

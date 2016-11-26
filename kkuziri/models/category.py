@@ -34,6 +34,20 @@ class Category(db.Model):
 
         return full_name
 
+    def get_id(self):
+        return self.id
+    
+    def get_name(self):
+        return self.name
+
+    def get_parent_category(self):
+        return self.parent_category
+
+    def get_parent_category_id(self):
+        return self.parent_category_id
+
     def get_posts(self, page=1, per_page=10):
         return self.posts.order_by(Post.created_at.desc()).\
                     paginate(page, per_page=per_page)
+    def get_sub_categories(self):
+        return self.sub_categories
