@@ -1,7 +1,6 @@
 from kkuziri import db
 from datetime import datetime
 from category import Category
-from comment import Comment
 from user import User
 
 class Post(db.Model):
@@ -13,7 +12,7 @@ class Post(db.Model):
     modified_at = db.Column(db.DateTime)
     views = db.Column(db.Integer)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
-    comments = db.relationship('Comment', backref='post', lazy='dynamic')
+    comments = db.relationship('Comment', order_by='desc(Comment.created_at)', backref='post', lazy='dynamic')
 
     def __init__(self, title, body, author_id, category_id):
         self.title = title
@@ -56,7 +55,7 @@ class Post(db.Model):
         return self.category_id
 
     def get_comments(self):
-        return self.comments.order_by(Comment.created_at.desc())
+        return self.comments
 
     def get_created_at(self):
         return self.created_at
