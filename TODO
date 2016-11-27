@@ -1,10 +1,17 @@
 NOW
-- throw 404 pate, or etc...
-- comment moedel dependency
+- live server db account, secret key change
 - applying RESTful api
+- post photo
+- comment photo
+- comment edit, deletion
+- about.html contents
 - ssl cert renew crontab (expired at 12/24 2016)
 - comment on me
 - special board for moziri
+
+post delete
+- when deleting post, it doesn't deleted at that time.
+- just change status of it.
 
 post view
 - on the top of the post page, it should include information about current
@@ -31,6 +38,7 @@ posts & category view
 RESTful api
 - replace form request to javascript ajax to complete RESTful api
     - because HTML action doesn't support 'PUT', 'DELETE' methods
+- comment new
 
 else
 - category name uniqueness?
