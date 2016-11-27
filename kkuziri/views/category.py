@@ -3,8 +3,8 @@ from kkuziri import app, db
 from kkuziri.models import Category
 from kkuziri.utils import Auth
 
-@Auth.auth_master
 @app.route('/categories', methods=['GET', 'POST'])
+@Auth.auth_master
 def new_category():
     if request.method == 'GET':
         return redirect(url_for('test'))

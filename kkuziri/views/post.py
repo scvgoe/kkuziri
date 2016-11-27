@@ -3,8 +3,8 @@ from kkuziri import app
 from kkuziri.models import User, Category, Post
 from kkuziri.utils import Auth
 
-@Auth.auth_master
 @app.route('/posts', methods=['POST'])
+@Auth.auth_master
 def new_post():
     if request.method == 'POST':
         post = Post.new_post(request.form.get('title'),
@@ -22,8 +22,8 @@ def get_post(id):
         if post != None:
             return render_template('post.html', post=Post.get_post(id))
 
-@Auth.auth_writer
 @app.route('/posts/<id>', methods=['POST'])
+@Auth.auth_writer
 def edit_post(id):
     if request.method == 'POST':
         post = Post.get_post(id)
@@ -35,8 +35,8 @@ def edit_post(id):
         
         return redirect(url_for('get_post', id=post.get_id()))
 
-@Auth.auth_master
 @app.route('/posts/<id>', methods=['DELETE'])
+@Auth.auth_master
 def delete_post(id):
     if request.method == 'DELETE':
         post = Post.get_post(id)
@@ -44,15 +44,15 @@ def delete_post(id):
             post.delete()
             return redirect(url_for('get_post_list'))
 
-@Auth.auth_master
 @app.route('/posts/edit')
+@Auth.auth_master
 def get_post_creator():
     if request.method == 'GET':
         return render_template('post_new.html',
                 categories=Category.get_categories())
 
-@Auth.auth_writer
 @app.route('/posts/edit/<int:id>')
+@Auth.auth_writer
 def get_post_editor(id):
     if request.method == 'GET':
         post = Post.get_post(id)

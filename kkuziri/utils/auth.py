@@ -1,35 +1,39 @@
-from flask import session
+from flask import session, abort
+from functools import wraps
 from kkuziri.models import Post
 import kkuziri
 
 class Auth():
     @staticmethod
     def auth_writer(original_function):
+        @wraps(original_function)
         def wrapper(*args, **kwargs):
-            if is_writer(args[0]):
+            if Auth.is_writer(kwargs['id']):
                 return original_function(*args, **kwargs)
 
-            #TODO return error page
+            return abort(403)
 
         return wrapper
 
     @staticmethod
     def auth_master(original_function):
+        @wraps(original_function)
         def wrapper(*args, **kwargs):
-            if is_master():
+            if Auth.is_master():
                 return original_function(*args, **kwargs)
 
-            #TODO return error page
+            return abort(403)
 
         return wrapper
 
     @staticmethod
     def auth_login(original_function):
+        @wraps(original_function)
         def wrapper(*args, **kwargs):
-            if is_login():
+            if Auth.is_login():
                 return original_function(*args, **kwargs)
 
-            #TODO return error page
+            return abort(403)
 
         return wrapper
 
