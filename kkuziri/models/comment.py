@@ -1,6 +1,6 @@
 from datetime import datetime
 from kkuziri import db, bcrypt
-from post import *
+from post import Post
 
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -42,7 +42,7 @@ class Comment(db.Model):
         if body == None or body == '':
             return False
 
-        if Post.get_post(id) == None:
+        if Post.get_post(post_id) == None:
             return False
 
         return True
