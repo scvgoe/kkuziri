@@ -1,4 +1,4 @@
-from flask import render_template, url_for, request, redirect
+from flask import render_template, url_for, request, redirect, abort
 from kkuziri import app, db
 from kkuziri.models import Category
 from kkuziri.utils import Auth
@@ -22,3 +22,6 @@ def new_category():
         db.session.add(category)
         db.session.commit()
         return redirect(url_for('test'))
+
+    else:
+        return abort(405)

@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, request, session
+from flask import render_template, redirect, url_for, request, session, abort
 from kkuziri import app, db
 from kkuziri.models import User, Post
 from kkuziri.utils import Auth
@@ -16,6 +16,9 @@ def login():
             session['user_id'] = user.get_id()
             return redirect(url_for('index'))
 
+    else:
+        return abort(405)
+
 @app.route('/login/facebook', methods=['POST'])
 def login_facebook():
     if request.method == 'POST':
@@ -30,6 +33,9 @@ def login_facebook():
         if (user is not None):
             session['user_id'] = user.get_id()
             return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
+
+    else:
+        return abort(405)
 
 @Auth.auth_login
 @app.route('/logout')
