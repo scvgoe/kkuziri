@@ -9,10 +9,6 @@ NOW
 - comment on me
 - special board for moziri
 
-post delete
-- when deleting post, it doesn't deleted at that time.
-- just change status of it.
-
 post view
 - on the top of the post page, it should include information about current
   category.

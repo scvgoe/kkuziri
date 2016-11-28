@@ -47,7 +47,10 @@ class Category(db.Model):
         return self.parent_category_id
 
     def get_posts(self, page=1, per_page=10):
-        return self.posts.order_by(Post.created_at.desc()).\
+        return self.posts.\
+                    filter_by(deleted_at=None).\
+                    order_by(Post.created_at.desc()).\
                     paginate(page, per_page=per_page)
+
     def get_sub_categories(self):
         return self.sub_categories

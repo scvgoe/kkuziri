@@ -13,6 +13,7 @@ class Post(db.Model):
     views = db.Column(db.Integer)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
     comments = db.relationship('Comment', order_by='desc(Comment.created_at)', backref='post', lazy='dynamic')
+    deleted_at = db.Column(db.DateTime)
 
     def __init__(self, title, body, author_id, category_id):
         self.title = title
@@ -23,7 +24,8 @@ class Post(db.Model):
         self.category_id = category_id
 
     def delete(self):
-        db.session.delete(self)
+        self.deleted_at = datetime.now()
+
         db.session.commit()
 
     def edit(self, title, body, category_name):
@@ -74,18 +76,25 @@ class Post(db.Model):
 
     @staticmethod
     def get_post(id):
-        return Post.query.get(id)
+        post = Post.query.get(id)
+        
+        if post != None and post.deleted_at == None:
+            return post
+
+        return None
 
     @staticmethod
     def get_posts(category_name=None, page=1, per_page=10):
+        posts = None
         if (category_name==None):
             posts = Post.query.\
+                    filter_by(deleted_at=None).\
                     order_by(Post.created_at.desc()).\
                     paginate(page, per_page=per_page)
         else:
-            # TODO category name validation check
             category = Category.get_category(category_name)
-            posts = category.get_posts(page=page, per_page=per_page)
+            if category != None:
+                posts = category.get_posts(page=page, per_page=per_page)
 
         return posts
 
