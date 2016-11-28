@@ -1,6 +1,4 @@
 NOW
-- live server db account, secret key change
-- applying RESTful api
 - post photo
 - comment photo
 - comment edit, deletion
@@ -30,11 +28,6 @@ posts & category view
 - on the bottom of list of categories, there is a button to add a category.
 - when clicking one of categories, then show list of posts 
 - each element's name include number of comments.
-
-RESTful api
-- replace form request to javascript ajax to complete RESTful api
-    - because HTML action doesn't support 'PUT', 'DELETE' methods
-- comment new
 
 else
 - category name uniqueness?
