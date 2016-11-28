@@ -5,7 +5,7 @@ from post import Post
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     body = db.Column(db.Text)
-    author_id = db.Column(db.String(64), db.ForeignKey('user.id'))
+    author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
     created_at = db.Column(db.DateTime)
     modified_at = db.Column(db.DateTime)
