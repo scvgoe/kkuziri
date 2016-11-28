@@ -74,8 +74,7 @@
             <!-- Comments Form -->
             <div class="well">
                 <h4>Leave a Comment:</h4>
-                <form method='POST' action="{{url_for('new_comment',
-                post_id=post.get_id())}}">
+                <form method='POST' action="{{url_for('new_comment', post_id=post.get_id())}}">
                     <div class="form-group">
                         <textarea class="form-control" name="body" rows="3" {%
                             if not Auth.is_login() %} disabled {% endif %}></textarea>
@@ -85,11 +84,15 @@
             </div>
             {% for comment in post.get_comments() %}
             <div class="media">
-                <a class="pull-left" href="">
-                    <img class="media-object" src="http://placehold.it/64x64" alt="">
+                <a class="pull-left" href="http://facebook.com/{{comment.get_author().get_username() }}">
+                    <img class="media-object" src="http://graph.facebook.com/{{
+                        comment.get_author().get_username() }}/picture">
                 </a>
                 <div class="media-body">
-                    <h4 class="media-heading">{{ comment.get_author().get_name() }}
+                    <h4 class="media-heading">
+                        <a href="http://facebook.com/{{comment.get_author().get_username() }}">
+                            {{ comment.get_author().get_name() }}
+                        </a>
                         <small>{{comment.get_created_at().strftime('%Y %m %d %H:%M')}}</small>
                     </h4>
                     {{ comment.get_body() }}
