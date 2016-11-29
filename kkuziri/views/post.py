@@ -1,16 +1,22 @@
 from flask import render_template, url_for, request, session, redirect, abort
 from kkuziri import app
-from kkuziri.models import Category, Post
+from kkuziri.models import Category, Post, User
 from kkuziri.utils import Auth
 
 @app.route('/posts', methods=['POST'])
 @Auth.auth_master
 def new_post():
     if request.method == 'POST':
-        post = Post.new_post(request.form.get('title'),
+        category_name = request.form.get('category').split('/')[-1]
+        category = Category.get_category(category_name)
+        user = User.get_user(id=session['user_id'])
+        post = None
+
+        if category != None and user != None:
+            post = Post.new_post(request.form.get('title'),
                 request.form.get('body'),
                 session['user_id'],
-                request.form.get('category').split('/')[-1])
+                category.get_id())
 
         if post != None:
             return redirect(url_for('get_post', id=post.get_id()))
@@ -35,15 +41,18 @@ def get_post(id):
         return abort(405)
 
 @app.route('/posts/<id>', methods=['POST'])
-@Auth.auth_writer
+@Auth.auth_post_writer
 def edit_post(id):
     if request.method == 'POST':
+        category_name = request.form.get('category').split('/')[-1]
+        category = Category.get_category(category_name)
+        user = User.get_user(id=session['user_id'])
         post = Post.get_post(id)
 
-        if post != None:
+        if post != None and category != None and user != None:
             post = post.edit(request.form.get('title'),
                        request.form.get('body'),
-                       request.form.get('category').split('/')[-1])
+                       category.get_id())
         
             return redirect(url_for('get_post', id=post.get_id()))
         

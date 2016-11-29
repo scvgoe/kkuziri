@@ -1,7 +1,5 @@
 from kkuziri import db
 from datetime import datetime
-from category import Category
-from user import User
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -28,13 +26,13 @@ class Post(db.Model):
 
         db.session.commit()
 
-    def edit(self, title, body, category_name):
-        if not Post.is_valid(title, body, self.author_id, category_name):
+    def edit(self, title, body, category_id):
+        if not Post.is_valid(title, body):
             return self 
 
         self.title = title
         self.body = body
-        self.category = Category.get_category(category_name)
+        self.category_id = category_id
         self.modified_at = datetime.now()
 
         db.session.commit()
@@ -84,43 +82,30 @@ class Post(db.Model):
         return None
 
     @staticmethod
-    def get_posts(category_name=None, page=1, per_page=10):
-        posts = None
-        if (category_name==None):
-            posts = Post.query.\
-                    filter_by(deleted_at=None).\
-                    order_by(Post.created_at.desc()).\
-                    paginate(page, per_page=per_page)
-        else:
-            category = Category.get_category(category_name)
-            if category != None:
-                posts = category.get_posts(page=page, per_page=per_page)
+    def get_posts(page=1, per_page=10):
+        posts = Post.query.\
+                filter_by(deleted_at=None).\
+                order_by(Post.created_at.desc()).\
+                paginate(page, per_page=per_page)
 
         return posts
 
     @staticmethod
-    def is_valid(title, body, author_id, category_name):
+    def is_valid(title, body):
         if title == None or title == '':
             return False
         
         if body == None or body == '':
             return False
         
-        if User.get_user(id=author_id) == None:
-            return False
-
-        if Category.get_category(category_name) == None:
-            return False
-        
         return True
 
     @staticmethod
-    def new_post(title, body, author_id, category_name):
-        if not Post.is_valid(title, body, author_id, category_name):
+    def new_post(title, body, author_id, category_id):
+        if not Post.is_valid(title, body):
             return None
 
-        category = Category.get_category(category_name)
-        post = Post(title, body, author_id, category.get_id())
+        post = Post(title, body, author_id, category_id)
         db.session.add(post)
         db.session.commit()
 

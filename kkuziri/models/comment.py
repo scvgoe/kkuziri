@@ -1,6 +1,5 @@
 from datetime import datetime
 from kkuziri import db, bcrypt
-from post import Post
 
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -56,18 +55,15 @@ class Comment(db.Model):
         return self.post_id
 
     @staticmethod
-    def is_valid(body, author_id, post_id):
+    def is_valid(body, author_id):
         if body == None or body == '':
-            return False
-
-        if Post.get_post(post_id) == None:
             return False
 
         return True
 
     @staticmethod
     def new_comment(body, author_id, post_id):
-        if not Comment.is_valid(body, author_id, post_id):
+        if not Comment.is_valid(body, author_id):
             return None
 
         comment = Comment(body, author_id, post_id)
