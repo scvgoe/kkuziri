@@ -53,7 +53,7 @@ def edit_post(id):
         return abort(405)
 
 @app.route('/posts/<id>/delete')
-@Auth.auth_master
+@Auth.auth_post_writer_or_master
 def delete_post(id):
     if request.method == 'GET':
         post = Post.get_post(id)
@@ -78,7 +78,7 @@ def get_post_creator():
         return(405)
 
 @app.route('/posts/edit/<int:id>')
-@Auth.auth_writer
+@Auth.auth_post_writer
 def get_post_editor(id):
     if request.method == 'GET':
         post = Post.get_post(id)

@@ -9,12 +9,18 @@ class Comment(db.Model):
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
     created_at = db.Column(db.DateTime)
     modified_at = db.Column(db.DateTime)
+    deleted_at = db.Column(db.DateTime)
 
     def __init__(self, body, author_id, post_id):
         self.body = body
         self.author_id = author_id
         self.post_id = post_id
         self.created_at = datetime.now()
+
+    def delete(self):
+        self.deleted_at = datetime.now()
+
+        db.session.commit()
 
     def get_author(self):
         return self.author
@@ -25,8 +31,20 @@ class Comment(db.Model):
     def get_body(self):
         return self.body
 
+    @staticmethod
+    def get_comment(id):
+        comment = Comment.query.get(id)
+
+        if comment.deleted_at == None:
+            return comment
+
+        return None
+
     def get_created_at(self):
         return self.created_at
+
+    def get_deleted_at(self):
+        return self.deleted_at
 
     def get_id(self):
         return self.id

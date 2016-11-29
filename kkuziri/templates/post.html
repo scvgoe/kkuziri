@@ -31,7 +31,7 @@
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             {{ markdown(post.get_body())|safe }}
             <ul class="pager pager-btn pull-right">
-                {% if Auth.is_writer(post.get_id()) %}
+                {% if Auth.is_post_writer(post.get_id()) %}
                 <li>
                     <a href="{{url_for('get_post_editor', id=post.get_id())}}">
                         <span class="fa-1x"
@@ -41,7 +41,7 @@
                     </a>
                 </li>
                 {% endif %}
-                {% if Auth.is_master() %}
+                {% if Auth.is_post_writer(post.get_id()) or Auth.is_master() %}
                 <li>
                     <a href="{{url_for('delete_post', id=post.get_id())}}">
                         <span class="fa-1x"
@@ -94,6 +94,13 @@
                             {{ comment.get_author().get_name() }}
                         </a>
                         <small>{{comment.get_created_at().strftime('%Y %m %d %H:%M')}}</small>
+                        {% if Auth.is_comment_writer(comment.get_id()) or Auth.is_master() %}
+                        <a class="pull-right" href="{{url_for('delete_comment', id=comment.get_id())}}">
+                            <span class="fa-1x" aria-hidden="true">
+                                <i class="fa fa-trash" style="font-size:0.7em;"></i>
+                            </span>
+                        </a>
+                        {% endif %}
                     </h4>
                     {{ comment.get_body() }}
                 </div>

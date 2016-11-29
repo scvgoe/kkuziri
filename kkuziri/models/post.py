@@ -57,7 +57,7 @@ class Post(db.Model):
         return self.category_id
 
     def get_comments(self):
-        return self.comments
+        return self.comments.filter_by(deleted_at=None)
 
     def get_created_at(self):
         return self.created_at

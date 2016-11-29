@@ -17,3 +17,19 @@ def new_comment(post_id):
     
     else:
         return abort(405)
+
+@app.route('/comments/<id>')
+@Auth.auth_comment_writer_or_master
+def delete_comment(id):
+    if request.method == 'GET':
+        comment = Comment.get_comment(id)
+
+        if comment != None:
+            comment.delete()
+            return redirect(url_for('get_post', id=comment.get_post_id()))
+        
+        else:
+            return abort(404)
+    
+    else:
+        return abort(405)
