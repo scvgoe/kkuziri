@@ -32,7 +32,7 @@
                         <option selected="selected">Root</option>
                     </select>
                 </div>
-                <textarea name="body" data-provide="markdown" rows="30"></textarea>
+                <textarea name="body"></textarea>
                 <hr/>
                 <button type="submit" class="btn">Submit</button>
             </form> 
@@ -42,8 +42,7 @@
 
 {% endblock %}
 {% block script_below %}
-<link rel="stylesheet" type="text/css" media="screen" href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-markdown/2.2.1/css/bootstrap-markdown.min.css">
-<script src="http://toopay.github.io/bootstrap-markdown/js/markdown.js"></script>
-<script src="http://toopay.github.io/bootstrap-markdown/js/to-markdown.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-markdown/2.2.1/js/bootstrap-markdown.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+<script src="{{ url_for('static', filename='js/markdown.js') }}"></script>
 {% endblock %}

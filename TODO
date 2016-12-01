@@ -1,5 +1,6 @@
 NOW
-- post photo
+- image server
+- private posts
 - about.html contents
 - ssl cert renew crontab (expired at 12/24 2016)
 - comment on me
