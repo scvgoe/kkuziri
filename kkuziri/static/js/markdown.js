@@ -34,8 +34,8 @@ var simplemde = new SimpleMDE({
 							return;
 
 						var text;
-						var start = options.insertTexts.link[0];
-						var end = options.insertTexts.link[1];
+						var start = options.insertTexts.image[0];
+						var end = options.insertTexts.image[1];
 						var startPoint = cm.getCursor("start");
 						var endPoint = cm.getCursor("end");
 						if(url) {
