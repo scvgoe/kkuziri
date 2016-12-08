@@ -1,5 +1,6 @@
 NOW
-- image server
+- post: image size
+- post: change markdown to html converter to simplemde
 - private posts
 - about.html contents
 - ssl cert renew crontab (expired at 12/24 2016)
