@@ -1,9 +1,18 @@
 server {
     listen 80;
+    server_name image.kkuziri.io;
+
+    location / {
+        root /home/scvgoe/kkuziri/kkuziri/static/img;
+    }
+}
+
+server {
+    listen 80;
     server_name kkuziri.io;
 
     # Redirect all HTTP requests to HTTPS with a 301 Moved Permanently response.
-    return 301 https://$host$request_uri;
+    return 301 https://kkuziri.io$request_uri;
 }
 
 server {
@@ -11,7 +20,7 @@ server {
     server_name www.kkuziri.io;
 
     # Redirect all HTTP requests to HTTPS with a 301 Moved Permanently response.
-    return 301 https://$host$request_uri;
+    return 301 https://kkuziri.io$request_uri;
 }
 
 server {
