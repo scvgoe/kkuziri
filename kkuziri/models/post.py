@@ -1,5 +1,7 @@
 from kkuziri import db
 from datetime import datetime
+from flask import session
+from sqlalchemy import or_, and_
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -12,21 +14,23 @@ class Post(db.Model):
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
     comments = db.relationship('Comment', order_by='desc(Comment.created_at)', backref='post', lazy='dynamic')
     deleted_at = db.Column(db.DateTime)
+    is_private = db.Column(db.Boolean)
 
-    def __init__(self, title, body, author_id, category_id):
+    def __init__(self, title, body, author_id, category_id, is_private):
         self.title = title
         self.body = body
         self.author_id = author_id
         self.created_at = datetime.now()
         self.views = 0
         self.category_id = category_id
+        self.is_private = is_private
 
     def delete(self):
         self.deleted_at = datetime.now()
 
         db.session.commit()
 
-    def edit(self, title, body, category_id):
+    def edit(self, title, body, category_id, is_private):
         if not Post.is_valid(title, body):
             return self 
 
@@ -34,6 +38,7 @@ class Post(db.Model):
         self.body = body
         self.category_id = category_id
         self.modified_at = datetime.now()
+        self.is_private = is_private 
 
         db.session.commit()
 
@@ -63,6 +68,9 @@ class Post(db.Model):
     def get_id(self):
         return self.id
 
+    def get_is_private(self):
+        return self.is_private
+
     def get_modified_at(self):
         return self.modified_at
 
@@ -77,16 +85,31 @@ class Post(db.Model):
         post = Post.query.get(id)
         
         if post != None and post.deleted_at == None:
-            return post
+            if ((post.is_private != True) or
+                    (post.is_private == True and
+                        'user_id' in session and
+                        post.author_id == session['user_id'])):
+                return post
 
         return None
 
     @staticmethod
     def get_posts(page=1, per_page=10):
-        posts = Post.query.\
-                filter_by(deleted_at=None).\
-                order_by(Post.created_at.desc()).\
-                paginate(page, per_page=per_page)
+        if ('user_id' in session):
+            posts = Post.query.\
+                    filter_by(deleted_at=None).\
+                    filter(or_(Post.is_private != True,
+                               and_(Post.is_private ==  True,
+                                    Post.author_id == session['user_id']))).\
+                    order_by(Post.created_at.desc()).\
+                    paginate(page, per_page=per_page)
+
+        else:
+            posts = Post.query.\
+                    filter_by(deleted_at=None).\
+                    filter(Post.is_private != True).\
+                    order_by(Post.created_at.desc()).\
+                    paginate(page, per_page=per_page)
 
         return posts
 
@@ -101,11 +124,11 @@ class Post(db.Model):
         return True
 
     @staticmethod
-    def new_post(title, body, author_id, category_id):
+    def new_post(title, body, author_id, category_id, is_private):
         if not Post.is_valid(title, body):
             return None
 
-        post = Post(title, body, author_id, category_id)
+        post = Post(title, body, author_id, category_id, is_private)
         db.session.add(post)
         db.session.commit()
 

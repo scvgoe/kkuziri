@@ -26,6 +26,9 @@
             <div class="post-preview">
                 <a href="{{url_for('get_post', id=post.get_id())}}">
                     <h2 class="post-title">
+                        {% if post.get_is_private() == True %}
+                        <i class="fa fa-lock"></i>
+                        {% endif %}
                         {{post.get_title()}}
                     </h2>
                 </a>

@@ -36,6 +36,11 @@
                     </select>
                 </div>
                 <textarea name="body">{{ post.get_body() }}</textarea>
+                <input type="checkbox" name="is_private"
+                {% if post.get_is_private() %}
+                checked="checked"
+                {% endif %}
+                > is_private
                 <hr/>
                 <button type="submit" class="btn">Submit</button>
             </form> 
