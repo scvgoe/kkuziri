@@ -1,7 +1,6 @@
 from flask import render_template, redirect, url_for, request, session, abort
-from kkuziri import app, db
+from kkuziri import app, db, auth
 from kkuziri.models import User, Post
-from kkuziri.utils import Auth
 import json
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -37,7 +36,7 @@ def login_facebook():
     else:
         return abort(405)
 
-@Auth.auth_login
+@auth.auth_login
 @app.route('/logout')
 def logout():
     session.pop('user_id', None)

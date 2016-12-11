@@ -1,10 +1,9 @@
 from flask import render_template, url_for, request, session, flash, redirect, abort
-from kkuziri import app
-from kkuziri.utils import Auth
+from kkuziri import app, auth
 from kkuziri.models import Comment, Post
 
 @app.route('/comments/<post_id>', methods=['POST'])
-@Auth.auth_login
+@auth.auth_login
 def new_comment(post_id):
     if request.method == 'POST':
         post = Post.get_post(post_id)
@@ -23,7 +22,7 @@ def new_comment(post_id):
         return abort(405)
 
 @app.route('/comments/<id>')
-@Auth.auth_comment_writer_or_master
+@auth.auth_comment_writer_or_master
 def delete_comment(id):
     if request.method == 'GET':
         comment = Comment.get_comment(id)

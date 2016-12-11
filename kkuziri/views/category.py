@@ -1,10 +1,9 @@
 from flask import render_template, url_for, request, redirect, abort
-from kkuziri import app, db
+from kkuziri import app, db, auth
 from kkuziri.models import Category
-from kkuziri.utils import Auth
 
 @app.route('/categories', methods=['GET', 'POST'])
-@Auth.auth_master
+@auth.auth_master
 def new_category():
     if request.method == 'GET':
         return redirect(url_for('test'))

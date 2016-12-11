@@ -1,10 +1,9 @@
 from flask import render_template, url_for, request, session, redirect, abort
-from kkuziri import app
+from kkuziri import app, auth
 from kkuziri.models import Category, Post, User
-from kkuziri.utils import Auth
 
 @app.route('/posts', methods=['POST'])
-@Auth.auth_master
+@auth.auth_master
 def new_post():
     if request.method == 'POST':
         category_name = request.form.get('category').split('/')[-1]
@@ -41,7 +40,7 @@ def get_post(id):
         return abort(405)
 
 @app.route('/posts/<id>', methods=['POST'])
-@Auth.auth_post_writer
+@auth.auth_post_writer
 def edit_post(id):
     if request.method == 'POST':
         category_name = request.form.get('category').split('/')[-1]
@@ -62,7 +61,7 @@ def edit_post(id):
         return abort(405)
 
 @app.route('/posts/<id>/delete')
-@Auth.auth_post_writer_or_master
+@auth.auth_post_writer_or_master
 def delete_post(id):
     if request.method == 'GET':
         post = Post.get_post(id)
@@ -77,7 +76,7 @@ def delete_post(id):
         return abort(405)
 
 @app.route('/posts/edit')
-@Auth.auth_master
+@auth.auth_master
 def get_post_creator():
     if request.method == 'GET':
         return render_template('post_new.html',
@@ -87,7 +86,7 @@ def get_post_creator():
         return(405)
 
 @app.route('/posts/edit/<int:id>')
-@Auth.auth_post_writer
+@auth.auth_post_writer
 def get_post_editor(id):
     if request.method == 'GET':
         post = Post.get_post(id)
