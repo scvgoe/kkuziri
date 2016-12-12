@@ -26,7 +26,8 @@ auth = Auth()
 import markdown
 
 # jinja2 function add
-app.jinja_env.globals.update(markdown=lambda text: markdown.markdown(text, extensions=['markdown.extensions.nl2br']))
+app.jinja_env.globals.update(markdown=lambda text: markdown.markdown(text,
+    extensions=['nl2br', 'del_ins']))
 app.jinja_env.globals.update(Auth=auth)
 
 from views import *
