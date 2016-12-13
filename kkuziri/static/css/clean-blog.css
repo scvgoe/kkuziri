@@ -42,6 +42,7 @@ hr.small {
   border-color: white;
 }
 img {
+    width: 100%;
     max-width: 100%;
 }
 del {
