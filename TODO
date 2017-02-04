@@ -1,4 +1,8 @@
 NOW
+- image padding
+- font size
+- block clean added
+- Google analytics
 - Auth: functions like is_post_writer should be located in model.
 - posts order: created_at vs modified_at
 - ssl cert renew crontab (expired at 2017-03-09)
