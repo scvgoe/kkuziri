@@ -2,7 +2,7 @@ var simplemde = new SimpleMDE({
 	toolbar: [
 	"bold", "italic", "|",
 	"heading", "heading-smaller", "heading-bigger", "|",
-	"code", "quote", "unordered-list", "ordered-list", "clean-block", "strikethrough", "|",
+	"code", "quote", "unordered-list", "ordered-list", "table", "strikethrough", "|",
 	"link",
 	{
 		name: "image",
