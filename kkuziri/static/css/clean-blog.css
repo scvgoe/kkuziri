@@ -35,6 +35,10 @@ blockquote {
   color: #777777;
   font-style: italic;
 }
+blockquote p{
+  line-height: 1.5;
+  margin: 0 0;
+}
 hr.small {
   max-width: 100px;
   margin: 10px auto;
