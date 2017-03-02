@@ -21,15 +21,6 @@ class Comment(db.Model):
 
         db.session.commit()
 
-    def get_author(self):
-        return self.author
-
-    def get_author_id(self):
-        return self.author_id
-
-    def get_body(self):
-        return self.body
-
     @staticmethod
     def get_comment(id):
         comment = Comment.query.get(id)
@@ -38,21 +29,6 @@ class Comment(db.Model):
             return comment
 
         return None
-
-    def get_created_at(self):
-        return self.created_at
-
-    def get_deleted_at(self):
-        return self.deleted_at
-
-    def get_id(self):
-        return self.id
-
-    def get_modified_at(self):
-        return self.modified_at
-
-    def get_post_id(self):
-        return self.post_id
 
     @staticmethod
     def is_valid(body, author_id):

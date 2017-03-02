@@ -12,7 +12,7 @@ def login():
         user = User.get_user(username=request.form['username'])
         if (user != None and
                 user.is_correct_password(request.form['password'])):
-            session['user_id'] = user.get_id()
+            session['user_id'] = user.id
             return redirect(url_for('index'))
 
     else:
@@ -23,15 +23,15 @@ def login_facebook():
     if request.method == 'POST':
         user = User.get_user(username=request.json['username'])
         if (user is None):
-            user = User(request.json['username']) 
-            user.set_name(request.json['name'])
-            
+            user = User(request.json['username'])
+            user.name = request.json['name']
+
             db.session.add(user)
             db.session.commit()
 
         if (user is not None):
-            session['user_id'] = user.get_id()
-            return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
+            session['user_id'] = user.id
+            return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
 
     else:
         return abort(405)

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}{{ post.get_title() }}{% endblock %}
+{% block title %}{{ post.title }}{% endblock %}
 {% block script_above %}
 <script src="{{ url_for('static', filename='js/facebook.js') }}"></script>
 {% endblock %}
@@ -12,11 +12,11 @@
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <div class="post-heading">
-                <h2>{{ post.get_title() }}</h2>
-                {% if post.get_modified_at() %}
-                <span class="meta">{{post.get_modified_at().strftime('%Y %m %d %H:%M')}} modified</span>
+                <h2>{{ post.title }}</h2>
+                {% if post.modified_at %}
+                <span class="meta">{{post.modified_at.strftime('%Y %m %d %H:%M')}} modified</span>
                 {% else %}
-                <span class="meta">{{post.get_created_at().strftime('%Y %m %d %H:%M')}}</span>
+                <span class="meta">{{post.created_at.strftime('%Y %m %d %H:%M')}}</span>
                 {% endif %}
             </div>
             <hr>
@@ -30,11 +30,11 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            {{ markdown(post.get_body())|safe }}
+            {{ markdown(post.body)|safe }}
             <ul class="pager pager-btn pull-right">
-                {% if Auth.is_post_writer(post.get_id()) %}
+                {% if Auth.is_post_writer(post.id) %}
                 <li>
-                    <a href="{{url_for('get_post_editor', id=post.get_id())}}">
+                    <a href="{{url_for('get_post_editor', id=post.id)}}">
                         <span class="fa-1x"
                               aria-hidden="true">
                             <i class="fa fa-pencil"></i>
@@ -42,9 +42,9 @@
                     </a>
                 </li>
                 {% endif %}
-                {% if Auth.is_post_writer(post.get_id()) or Auth.is_master() %}
+                {% if Auth.is_post_writer(post.id) or Auth.is_master() %}
                 <li>
-                    <a href="{{url_for('delete_post', id=post.get_id())}}">
+                    <a href="{{url_for('delete_post', id=post.id)}}">
                         <span class="fa-1x"
                               aria-hidden="true">
                             <i class="fa fa-trash"></i>
@@ -75,7 +75,7 @@
             <!-- Comments Form -->
             <div class="well">
                 <h4>Leave a Comment:</h4>
-                <form method='POST' action="{{url_for('new_comment', post_id=post.get_id())}}">
+                <form method='POST' action="{{url_for('new_comment', post_id=post.id)}}">
                     <div class="form-group">
                         <textarea class="form-control" name="body" rows="3" {%
                             if not Auth.is_login() %} disabled {% endif %}></textarea>
@@ -85,25 +85,25 @@
             </div>
             {% for comment in post.get_comments() %}
             <div class="media">
-                <a class="pull-left" href="http://facebook.com/{{comment.get_author().get_username() }}">
+                <a class="pull-left" href="http://facebook.com/{{comment.author.username }}">
                     <img class="media-object" src="http://graph.facebook.com/{{
-                        comment.get_author().get_username() }}/picture">
+                        comment.author.username }}/picture">
                 </a>
                 <div class="media-body">
                     <h4 class="media-heading">
-                        <a href="http://facebook.com/{{comment.get_author().get_username() }}">
-                            {{ comment.get_author().get_name() }}
+                        <a href="http://facebook.com/{{comment.author.username }}">
+                            {{ comment.author.name }}
                         </a>
-                        <small>{{comment.get_created_at().strftime('%Y %m %d %H:%M')}}</small>
-                        {% if Auth.is_comment_writer(comment.get_id()) or Auth.is_master() %}
-                        <a class="pull-right" href="{{url_for('delete_comment', id=comment.get_id())}}">
+                        <small>{{comment.created_at.strftime('%Y %m %d %H:%M')}}</small>
+                        {% if Auth.is_comment_writer(comment.id) or Auth.is_master() %}
+                        <a class="pull-right" href="{{url_for('delete_comment', id=comment.id)}}">
                             <span class="fa-1x" aria-hidden="true">
                                 <i class="fa fa-trash" style="font-size:0.7em;"></i>
                             </span>
                         </a>
                         {% endif %}
                     </h4>
-                    {{ comment.get_body() }}
+                    {{ comment.body }}
                 </div>
             </div>
             {% endfor %}

@@ -15,11 +15,11 @@ def new_post():
             post = Post.new_post(request.form.get('title'),
                 request.form.get('body'),
                 session['user_id'],
-                category.get_id(),
+                category.id,
                 True if request.form.get('is_private') else False)
 
         if post != None:
-            return redirect(url_for('get_post', id=post.get_id()))
+            return redirect(url_for('get_post', id=post.id))
 
         else:
             return abort(404)
@@ -52,10 +52,10 @@ def edit_post(id):
         if post != None and category != None and user != None:
             post = post.edit(request.form.get('title'),
                        request.form.get('body'),
-                       category.get_id(),
+                       category.id,
                        True if request.form.get('is_private') else False)
         
-            return redirect(url_for('get_post', id=post.get_id()))
+            return redirect(url_for('get_post', id=post.id))
         
         else:
             return abort(404)

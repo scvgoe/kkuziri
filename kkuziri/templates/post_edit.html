@@ -20,30 +20,30 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <form method='POST' action="{{url_for('get_post', id=post.get_id())}}">
+            <form method='POST' action="{{url_for('get_post', id=post.id)}}">
                 <input class="form-control input-lg" name="title" type="text"
-                placeholder="Title" value="{{ post.get_title() }}"/>
+                placeholder="Title" value="{{ post.title }}"/>
                 <div class="form-group">
                     <label for="category">Category</label>
                     <select class="form-control" name='category' id="category">
                         {% for category in categories %}
-                        {% if category.get_name() == post.get_category().get_name() %}
-                        <option selected="selected">{{category.get_full_name()}}</option>
+                        {% if category.name == post.category.name %}
+                        <option selected="selected">{{category.full_name}}</option>
                         {% else %}
-                        <option>{{category.get_full_name()}}</option>
+                        <option>{{category.full_name}}</option>
                         {% endif %}
-                        {% endfor %} 
+                        {% endfor %}
                     </select>
                 </div>
-                <textarea name="body">{{ post.get_body() }}</textarea>
+                <textarea name="body">{{ post.body }}</textarea>
                 <input type="checkbox" name="is_private"
-                {% if post.get_is_private() %}
+                {% if post.is_private %}
                 checked="checked"
                 {% endif %}
                 > is_private
                 <hr/>
                 <button type="submit" class="btn">Submit</button>
-            </form> 
+            </form>
         </div>
     </div>
 </div>

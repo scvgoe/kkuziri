@@ -23,9 +23,10 @@ class Category(db.Model):
         category = Category.query.filter_by(name=name).first()
         return category
 
-    def get_full_name(self):
+    @property
+    def full_name(self):
         full_name = self.name
-        
+
         parent_id = self.parent_category_id
         while (parent_id is not None):
             parent = Category.query.get(parent_id)
@@ -34,23 +35,8 @@ class Category(db.Model):
 
         return full_name
 
-    def get_id(self):
-        return self.id
-    
-    def get_name(self):
-        return self.name
-
-    def get_parent_category(self):
-        return self.parent_category
-
-    def get_parent_category_id(self):
-        return self.parent_category_id
-
     def get_posts(self, page=1, per_page=10):
         return self.posts.\
                     filter_by(deleted_at=None).\
                     order_by(Post.created_at.desc()).\
                     paginate(page, per_page=per_page)
-
-    def get_sub_categories(self):
-        return self.sub_categories

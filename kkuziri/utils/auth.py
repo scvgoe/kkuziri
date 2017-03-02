@@ -67,7 +67,7 @@ class Auth():
     def is_post_writer(self, post_id):
         post = Post.get_post(post_id)
         if post != None and 'user_id' in session:
-            if post.get_author_id() == session['user_id']:
+            if post.author_id == session['user_id']:
                 return True
 
         return False
@@ -75,7 +75,7 @@ class Auth():
     def is_comment_writer(self, comment_id):
         comment = Comment.get_comment(comment_id)
         if comment != None and 'user_id' in session:
-            if comment.get_author_id() == session['user_id']:
+            if comment.author_id == session['user_id']:
                 return True
 
         return False

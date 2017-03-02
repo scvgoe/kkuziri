@@ -32,58 +32,25 @@ class Post(db.Model):
 
     def edit(self, title, body, category_id, is_private):
         if not Post.is_valid(title, body):
-            return self 
+            return self
 
         self.title = title
         self.body = body
         self.category_id = category_id
         self.modified_at = datetime.now()
-        self.is_private = is_private 
+        self.is_private = is_private
 
         db.session.commit()
 
         return self
 
-    def get_author(self):
-        return self.author
-
-    def get_author_id(self):
-        return self.author_id
-
-    def get_body(self):
-        return self.body
-
-    def get_category(self):
-        return self.category
-
-    def get_category_id(self):
-        return self.category_id
-
     def get_comments(self):
         return self.comments.filter_by(deleted_at=None)
-
-    def get_created_at(self):
-        return self.created_at
-
-    def get_id(self):
-        return self.id
-
-    def get_is_private(self):
-        return self.is_private
-
-    def get_modified_at(self):
-        return self.modified_at
-
-    def get_title(self):
-        return self.title
-
-    def get_views(self):
-        return self.views
 
     @staticmethod
     def get_post(id):
         post = Post.query.get(id)
-        
+
         if post != None and post.deleted_at == None:
             if ((post.is_private != True) or
                     (post.is_private == True and
@@ -117,10 +84,10 @@ class Post(db.Model):
     def is_valid(title, body):
         if title == None or title == '':
             return False
-        
+
         if body == None or body == '':
             return False
-        
+
         return True
 
     @staticmethod
