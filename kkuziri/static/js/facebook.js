@@ -37,13 +37,13 @@ function checkLoginState() {
 window.fbAsyncInit = function() {
 	FB.init({
 		appId      : '343088246039699',
-		cookie     : true,  // enable cookies to allow the server to access 
+		cookie     : true,  // enable cookies to allow the server to access
 		// the session
 		xfbml      : true,  // parse social plugins on this page
 		version    : 'v2.7' // use graph api version 2.5
 	});
 
-	// Now that we've initialized the JavaScript SDK, we call 
+	// Now that we've initialized the JavaScript SDK, we call
 	// FB.getLoginStatus().  This function gets the state of the
 	// person visiting this page and can return one of three states to
 	// the callback you provide.  They can be:
@@ -67,7 +67,7 @@ function login() {
 			url: "/login/facebook",
 			data: JSON.stringify({username: response.id, name: response.name}),
 			dataType: "json",
-			success:function(args){ 
+			success:function(args){
 				console.log("success");
 				window.location.replace("/index");
 			},
@@ -75,7 +75,7 @@ function login() {
 				console.log("fail");
 				window.location.replace("/login");
 			}
-		});        
+		});
 	});
 }
 

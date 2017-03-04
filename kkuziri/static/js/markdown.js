@@ -14,8 +14,8 @@ var simplemde = new SimpleMDE({
 					text += f.name + "<br/>";
 				});
 				$("#output").html(text);
-				
-				var fd = new FormData();    
+
+				var fd = new FormData();
 				fd.append( 'file', files[0] );
 
 				$.ajax({
