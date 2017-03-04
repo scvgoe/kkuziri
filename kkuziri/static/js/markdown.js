@@ -28,7 +28,7 @@ var simplemde = new SimpleMDE({
 						var cm = editor.codemirror;
 						var stat = editor.getState(cm);
 						var options = editor.options;
-						var url = "http://" + data.image_url;
+						var url =  data.image_url;
 
 						if(/editor-preview-active/.test(cm.getWrapperElement().lastChild.className))
 							return;

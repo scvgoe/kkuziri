@@ -2,8 +2,9 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_migrate import Migrate, MigrateCommand
-from flask_script import Manager 
+from flask_script import Manager
 from config import *
+import boto3
 
 app = Flask(__name__)
 
@@ -19,6 +20,12 @@ migrate = Migrate(app, db)
 
 manager = Manager(app)
 manager.add_command('db', MigrateCommand)
+
+s3_client = boto3.client(
+    's3',
+    aws_access_key_id = app.config['AWS_ACCESS_KEY_ID'],
+    aws_secret_access_key = app.config['AWS_SECRET_ACCESS_KEY'],
+    region_name = app.config['AWS_REGION'],)
 
 from utils import Auth
 auth = Auth()

@@ -1,4 +1,4 @@
-SECRET_KEY = 'I love my mom and dad'
+SECRET_KEY = ''
 
 # SQL ALCHEMY
 SQLALCHEMY_DATABASE_URI = 'postgresql://kkuziri:kkuziri@localhost/kkuziri'
@@ -6,6 +6,12 @@ SQLALCHEMY_DATABASE_URI = 'postgresql://kkuziri:kkuziri@localhost/kkuziri'
 # IMAGE UPLOAD CONFIG
 MAX_CONTENT_LENGTH = 16 * 1024 * 1024
 ALLOWED_EXTENSIONS = ['png', 'jpg', 'jpeg', 'gif']
-UPLOAD_FOLDER = '/Users/daesungkim/Developer/kkuziri/kkuziri/static/img'
 
-MASTER = [2]
+# AWS S3 CONFIG
+AWS_ACCESS_KEY_ID = '' # AWS IAM
+AWS_SECRET_ACCESS_KEY = '' # AWS IAM
+AWS_REGION = 'ap-northeast-2'
+AWS_S3_BUCKET_NAME = ''
+AWS_S3_BASE_URL = ''
+
+MASTER = [1]
