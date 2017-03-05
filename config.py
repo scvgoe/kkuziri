@@ -1,7 +1,7 @@
 SECRET_KEY = ''
 
 # SQL ALCHEMY
-SQLALCHEMY_DATABASE_URI = 'postgresql://kkuziri:kkuziri@localhost/kkuziri'
+SQLALCHEMY_DATABASE_URI = 'postgresql://kkuziri:kkuziri@postgresql/kkuziri'
 
 # IMAGE UPLOAD CONFIG
 MAX_CONTENT_LENGTH = 16 * 1024 * 1024

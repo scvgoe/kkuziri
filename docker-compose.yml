@@ -1,0 +1,18 @@
+version: '2'
+services:
+  kkuziri:
+    image: scvgoe/kkuziri:latest
+    ports:
+      - 80:80
+      - 443:443
+    links:
+      - postgresql
+  postgresql:
+    image: postgres
+    volumes:
+      - db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: kkuziri
+      POSTGRES_USER: kkuziri
+    ports:
+      - 5432:5432
