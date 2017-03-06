@@ -10,7 +10,7 @@ services:
   postgresql:
     image: postgres
     volumes:
-      - db:/var/lib/postgresql/data
+      - ./db:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: kkuziri
       POSTGRES_USER: kkuziri
