@@ -32,6 +32,5 @@ RUN mkdir -p /var/log/nginx/app /var/log/uwsgi/app /var/log/supervisor\
 
 EXPOSE 80
 EXPOSE 443
-EXPOSE 5432
 
 CMD ["/usr/bin/supervisord"]
