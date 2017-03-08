@@ -9,6 +9,7 @@ GetCert() {
         -v $(pwd)/letsencrypt/etc:/etc/letsencrypt \
         -v $(pwd)/letsencrypt/log:/var/log/letsencrypt \
         palobo/certbot certonly --standalone -t  \
+        --agree-tos
         $@
 }
 
