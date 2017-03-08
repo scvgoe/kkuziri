@@ -9,8 +9,6 @@ services:
       - postgresql
     volumes:
       - ./letsencrypt/etc:/etc/letsencrypt
-      - ./letsencrypt/lib:/var/lib/letsencrypt
-      - ./letsencrypt/www:/var/www/.well-known
   postgresql:
     image: postgres
     volumes:

@@ -5,19 +5,14 @@ docker pull palobo/certbot
 GetCert() {
     docker run -it \
         --rm \
-        -v letsencrypt/etc:/etc/letsencrypt \
-        -v letsencrypt/lib:/var/lib/letsencrypt \
-        -v letsencrypt/www:/var/www/.well-known \
-        palobo/certbot -t certonly --webroot -w /var/www \
-        --email scvgoe@gmail.com --agree-tos --keep-until-expiring \
+        -p 443:443 \
+        -v $(pwd)/letsencrypt/etc:/etc/letsencrypt \
+        -v $(pwd)/letsencrypt/log:/var/log/letsencrypt \
+        palobo/certbot certonly --standalone -t  \
         $@
 }
 
 echo "Getting certificates..."
-GetCert -d kkuziri.io
-
-echo "Restarting kkuziri..."
-docker-compose down
-docker-compose up -d
+GetCert -m scvgoe@gmail.com -d kkuziri.io
 
 echo "Done"
