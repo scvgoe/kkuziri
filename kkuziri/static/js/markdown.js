@@ -19,7 +19,7 @@ var simplemde = new SimpleMDE({
 				fd.append( 'file', files[0] );
 
 				$.ajax({
-					url: 'http://local.kkuziri.io:5000/image',
+					url: 'https://kkuziri.io/image',
 					data: fd,
 					processData: false,
 					contentType: false,
