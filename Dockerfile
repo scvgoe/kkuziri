@@ -10,7 +10,8 @@ RUN apt-get update && apt-get install -y \
     nginx supervisor libpq-dev libffi-dev g++ \
 	libssl-dev python-software-properties \
 	software-properties-common postgresql-9.3 \
-	postgresql-client-9.3 postgresql-contrib-9.3
+	postgresql-client-9.3 postgresql-contrib-9.3 \
+    docker.io cron
 
 COPY nginx/kkuziri.conf /etc/nginx/sites-available/kkuziri.conf
 COPY supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
@@ -21,6 +22,9 @@ COPY config.py /app/config.py
 COPY wsgi.py /app/wsgi.py
 COPY kkuziri.ini /app/kkuziri.ini
 COPY requirements.txt /app/requirements.txt
+COPY backup.py /app/backup.py
+COPY restore.py /app/restore.py
+COPY crontab /etc/cron.d/crontab
 
 RUN mkdir -p /var/log/nginx/app /var/log/uwsgi/app /var/log/supervisor\
     && rm /etc/nginx/sites-enabled/default \
@@ -28,7 +32,8 @@ RUN mkdir -p /var/log/nginx/app /var/log/uwsgi/app /var/log/supervisor\
     && echo "daemon off;" >> /etc/nginx/nginx.conf \
     && pip install -r /app/requirements.txt \
     && chown -R www-data:www-data /app \
-    && chown -R www-data:www-data /var/log
+    && chown -R www-data:www-data /var/log \
+    && chmod 0644 /etc/cron.d/crontab
 
 EXPOSE 80
 EXPOSE 443

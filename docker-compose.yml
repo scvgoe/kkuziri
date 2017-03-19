@@ -1,6 +1,7 @@
-version: '2'
+version: '3'
 services:
   kkuziri:
+    build: ./
     image: scvgoe/kkuziri:latest
     ports:
       - 80:80
@@ -9,10 +10,15 @@ services:
       - postgresql
     volumes:
       - ./letsencrypt/etc:/etc/letsencrypt
+      - /var/run/docker.sock:/var/run/docker.sock
+    tmpfs:
+      - /backup
   postgresql:
     image: postgres
     volumes:
       - ./db:/var/lib/postgresql/data
+    tmpfs:
+      - /backup
     environment:
       POSTGRES_PASSWORD: kkuziri
       POSTGRES_USER: kkuziri
