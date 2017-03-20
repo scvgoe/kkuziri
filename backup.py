@@ -13,7 +13,7 @@ def backup():
     filename = '/backup/' + str(now)
 
     result = subprocess.call(
-        ['docker exec -it $(docker ps -f \'name=kkuziri_postgresql_1\' -q) \
+        ['docker exec -i $(docker ps -f \'name=kkuziri_postgresql_1\' -q) \
                 pg_dump -U kkuziri > \'%s\'' % (filename)],
         shell=True,
         stdout=subprocess.PIPE
