@@ -33,7 +33,8 @@ RUN mkdir -p /var/log/nginx/app /var/log/uwsgi/app /var/log/supervisor\
     && pip install -r /app/requirements.txt \
     && chown -R www-data:www-data /app \
     && chown -R www-data:www-data /var/log \
-    && chmod 0644 /etc/cron.d/crontab
+    && chmod 0644 /etc/cron.d/crontab \
+    && echo "Asia/Seoul" > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata
 
 EXPOSE 80
 EXPOSE 443
