@@ -1,1 +1,1 @@
-0 */4 * * * root python /app/backup.py >> /var/log/cron.log 2>&1
+0 0 * * * root python /app/backup.py >> /var/log/cron.log 2>&1
